@@ -1,0 +1,17 @@
+{
+  "name": "themes-starter-spa",
+  "version": "1.0",
+  "homepage": "https://github.com/them-es",
+  "authors": [
+    "them.es"
+  ],
+  "description": "WordPress Starter Theme for Single Page Applications",
+  "license": "GPLv2+",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+	"polymer-paper-elements": "PolymerElements/paper-elements#^1.0.0",
+	"polymer-iron-elements": "PolymerElements/iron-elements#^1.0.0",
+	"page.js": "visionmedia/page.js",
+	"typeahead.js": "twitter/typeahead.js"
+  }
+}
