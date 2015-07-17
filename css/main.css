@@ -1,13 +1,9 @@
 /* General styles */
 
-html {
-	position: relative;
-}
-
 body {
-    background: #fafafa;
     font-family: 'Roboto', 'Noto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #333;
+	background: #FAFAFA;
 }
 
 .container {
@@ -15,46 +11,4 @@ body {
 }
 .container.narrow {
 	padding: 0 0.5em;
-}
-
-.lead {
-	font-size: 21px;
-	font-weight: 300;
-	line-height: 1.4;
-	margin-bottom: 20px;
-}
-
-hr {
-	border: 0 none;
-	border-top: 5px solid #FFF;
-	margin: 5em 0;
-}
-
-footer {
-	color: #B6B6B6;
-	margin-top: 2em;
-}
-
-.thumbnail {
-	width: 250px;
-	height: 250px;
-	background-color: #f8f8f8;
-}
-
-img {
-	max-width: 100%;
-	height: auto;
-	vertical-align: middle;
-}
-
-/* Logo */
-#nav .navbar-brand img {
-	height: 40px;
-}
-
-#drawer {
-	box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1);
-}
-#drawer p {
-	padding: 0.9em 1em;
 }

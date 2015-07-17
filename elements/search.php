@@ -35,8 +35,8 @@
 			}
 		</style>
 		
-		<paper-input-container>
-			<label><iron-icon icon="search"></iron-icon><?php _e('Search', 'my-theme'); ?></label>
+		<paper-input-container title="<?php _e('Search', 'my-theme'); ?>">
+			<label><iron-icon icon="search"></iron-icon></label>
 			<input type="text" is="iron-input" class="typeahead" />
 		</paper-input-container>
 	</template>

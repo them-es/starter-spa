@@ -37,22 +37,20 @@
 	
 	<paper-drawer-panel id="wrapper">
 
-		<paper-header-panel id="nav" drawer>
-			<paper-toolbar id="drawerToolbar">
-				<a class="navbar-brand flex" href="<?php echo home_url(); ?>" rel="home">
-					<?php
-						$header_logo = get_theme_mod('header_logo'); // get custom meta-value
+		<div id="nav" drawer>
+			<a class="navbar-brand flex" href="<?php echo home_url(); ?>" rel="home">
+				<?php
+					$header_logo = get_theme_mod('header_logo'); // get custom meta-value
 
-						if ( isset($header_logo) && $header_logo != "" ):
-					?>
-						<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
-					<?php 
-						else:
-							echo esc_attr( get_bloginfo( 'name', 'display' ) );
-						endif;
-					?>
-				</a>
-			</paper-toolbar>
+					if ( isset($header_logo) && $header_logo != "" ):
+				?>
+					<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
+				<?php 
+					else:
+						echo esc_attr( get_bloginfo( 'name', 'display' ) );
+					endif;
+				?>
+			</a>
 			<div class="layout vertical">
 				<post-search></post-search>
 				
@@ -78,7 +76,7 @@
 									$href = themes_starter_site_base() . '/';
 								}
 								
-								$paper_items .= '<a data-route="' . $slug . '" href="' . $href . '">' . $title . '</a>';
+								$paper_items .= '<a data-route="' . $slug . '" href="' . $href . '"><span>' . $title . '</span></a>';
 							}
 						} else {
 							$paper_items = 'Menu "' . $menu_name . '" not defined.';
@@ -91,14 +89,20 @@
 					<small>&copy; <?php echo date('Y'); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
 				</p>
 			</div>
-		</paper-header-panel>
+		</div>
 		
-		<paper-header-panel id="main" main>
-			<paper-toolbar id="mainToolbar">
+		<paper-scroll-header-panel id="main" main condenses keep-condensed-header>
+			<paper-toolbar id="mainToolbar" class="tall">
 				<paper-icon-button icon="menu" tabindex="1" paper-drawer-toggle></paper-icon-button>
-				<div class="flex title">
-					<span>{{routetitle}}</span> <span>{{current_user}}</span>
+				
+				<div class="flex"></div>
+				
+				<div class="middle middle-container center horizontal layout">
+					
 				</div>
+				<div class="bottom bottom-container center horizontal layout">
+					<span class="title">{{routetitle}}</span><span class="bottom-title">{{current_user}}</span>
+				</div><!-- Sub title -->
 			</paper-toolbar>
 			
 			<div class="container">
@@ -167,7 +171,7 @@
 				</iron-pages>
 
 			</div><!-- /.container -->
-		</paper-header-panel>
+		</paper-scroll-header-panel>
 
 	</paper-drawer-panel><!-- /#main -->
 
