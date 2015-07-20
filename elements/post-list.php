@@ -35,7 +35,7 @@
 				<post-card id="{{item.ID}}">
 					<div class="card-header">
 						<iron-icon icon="star" hidden$="{{!item.sticky}}" style="float: right;"></iron-icon>
-						<iron-image hidden$="{{!item.featured_image}}" src="{{item.featured_image.source}}" class="thumbnail" sizing="contain" preload fade></iron-image>
+						<iron-image hidden$="{{!item.featured_image}}" src="{{item.featured_image.source}}" style="width: 250px; height: 250px;" sizing="contain" preload fade></iron-image>
 						<h1 class="title">{{item.title}}</h1>
 						<div id="content" hidden$="{{!item.content}}">{{stripHTML(item.content)}}</div>
 						<footer>

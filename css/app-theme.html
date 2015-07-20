@@ -86,12 +86,12 @@ paper-toolbar a {
 }
 
 paper-toolbar .bottom {
-	padding-left: 50px;
+	margin-left: 50px;
 }
 
 
 /* General styles */
-	
+
 
 .lead {
 	font-size: 21px;
@@ -103,12 +103,6 @@ hr {
 	border: 0 none;
 	border-top: 5px solid #FFF;
 	margin: 5em 0;
-}
-
-.thumbnail {
-	width: 250px;
-	height: 250px;
-	background-color: var(--thumbnail-background-color);
 }
 
 img {
@@ -129,6 +123,7 @@ img {
 
 #nav {
 	box-shadow: 1px 0 1px rgba(0, 0, 0, 0.1) !important;
+	overflow-y: auto;
 }
 #nav p {
 	padding: 0.9em 1em;
@@ -155,23 +150,29 @@ img {
 .paper-menu a {
 	text-decoration: none;
 	color: var(--menu-link-color);
+	font-family: 'Roboto', 'Noto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
 	-ms-flex-direction: row;
 	-webkit-flex-direction: row;
 	flex-direction: row;
+	padding: 0 16px;
+}
+.paper-menu a span {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
 	-ms-flex-align: center;
 	-webkit-align-items: center;
 	align-items: center;
-	font-family: 'Roboto', 'Noto', sans-serif;
-	-webkit-font-smoothing: antialiased;
-	text-rendering: optimizeLegibility;
 	font-size: 14px;
 	font-weight: 700;
 	line-height: 24px;
 	min-height: 48px;
-	padding: 0 16px;
+	width: 100%;
 }
 
 #paperToggle {
@@ -188,6 +189,11 @@ post-card {
 	border-radius: 3px;
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
+	
+iron-image {
+	background-color: var(--thumbnail-background-color);
+}
+
 
 
 /* Breakpoints */
@@ -213,7 +219,7 @@ post-card {
   #mainToolbar.has-shadow .bottom {
     padding-bottom: 0px;
   }
-  
+
   paper-toolbar .title {
 	font-size: 20px !important;
 	line-height: 24px !important;
