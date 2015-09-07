@@ -112,7 +112,7 @@
 					}
 				?>
 				
-				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" multi>
 				<?php
 					foreach ($parent as $key => $value) {
 						$paper_items = '';
@@ -121,8 +121,8 @@
 							$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a><!-- menu_item -->';
 						} else {
 							$paper_items .= '<paper-submenu>';
-							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span></paper-item>';
-							$paper_items .= '<paper-menu class="menu-content sublist">';
+							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
+							$paper_items .= '<paper-menu class="menu-content sublist" multi>';
 							foreach ($value["child"] as $key => $value) {
 								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
 							}

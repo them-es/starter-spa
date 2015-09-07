@@ -1,6 +1,11 @@
 <style is="custom-style">
 
-/* Application theme. Style all your elements here */
+/*
+	Application theme. Style all your elements here by using CSS variables
+	
+	https://drafts.csswg.org/css-variables
+	https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables
+*/
 
 :root {
 	/* http://www.materialpalette.com */
@@ -144,9 +149,6 @@ img {
 	margin-right: 1em;
 	opacity: 0.5;
 }
-.paper-menu > .iron-selected {
-	color: var(--default-primary-color);
-}
 .paper-menu a,
 paper-item {
 	text-decoration: none;
@@ -161,6 +163,11 @@ paper-item {
 	-webkit-flex-direction: row;
 	flex-direction: row;
 	padding: 0 16px;
+}
+.paper-menu a:focus,
+.paper-item:focus {
+	color: var(--default-primary-color);
+	/*background-color: var(--light-primary-color);*/
 }
 .paper-menu a span,
 paper-item span {
