@@ -52,39 +52,89 @@
 				?>
 			</a>
 			<div class="layout vertical">
-				<post-search></post-search>
+				<post-search></post-search><!-- Search component -->
 				
-				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
-					<?php
-						// "$menu_name" defined in functions.php
+				<?php
+					// "$menu_name" defined in functions.php
+					// Demo: https://github.com/PolymerElements/paper-menu/blob/master/demo/index.html
+
+					$parent = array();
+					if ( ($locations = get_nav_menu_locations()) && isset($locations[$menu_name]) ) {
 						
-						if ( ( $locations = get_nav_menu_locations() ) && isset( $locations[ $menu_name ] ) ) {
-							$menu = wp_get_nav_menu_object( $locations[ $menu_name ] );
-							$menu_items = wp_get_nav_menu_items($menu->term_id);
+						$menu = wp_get_nav_menu_object($locations[$menu_name]);
+						$menu_items = wp_get_nav_menu_items($menu->term_id);
+						
+						$parent_id = 0;
+						
+						foreach( (array)$menu_items as $key => $menu_item ) {
 							
-							$paper_items = '';
-							
-							foreach ( (array) $menu_items as $key => $menu_item ) {
+							if ( $menu_item->menu_item_parent == 0 ) {
+								
 								$id = $menu_item->object_id; // = Page ID
 								$post_data = get_post($id, ARRAY_A);
     							$slug = $post_data['post_name']; // = Page Slug
-								$href = themes_starter_site_base() . '/' . $slug;
+								//$url = $menu_item->url;
+								$url = themes_starter_site_base() . '/' . $slug;
+								$title = $menu_item->title;
+								$parent_id = $menu_item->db_id;
+								
+								if ( $id == get_option('page_on_front') ) {
+									$slug = 'index';
+									$url = themes_starter_site_base() . '/';
+								}
+								
+								array_push( $parent, array("title" => $title, "url" => $url, "slug" => $slug, "child" => array()) );
+								
+							} else if ( $menu_item->menu_item_parent == $parent_id ) {
+								
+								$id = $menu_item->object_id; // = Page ID
+								$post_data = get_post($id, ARRAY_A);
+    							$slug = $post_data['post_name']; // = Page Slug
+								//$url = $menu_item->url;
+								$url = themes_starter_site_base() . '/' . $slug;
 								$title = $menu_item->title;
 								
 								if ( $id == get_option('page_on_front') ) {
 									$slug = 'index';
-									$href = themes_starter_site_base() . '/';
+									$url = themes_starter_site_base() . '/';
 								}
 								
-								$paper_items .= '<a data-route="' . $slug . '" href="' . $href . '"><span>' . $title . '</span></a>';
+								array_push( $parent[count($parent) - 1]["child"], array("title" => $title, "url" => $url, "slug" => $slug) );
+							} else {
+								// do nothing
 							}
+						}
+						
+					} else {
+
+						echo 'Menu "' . $menu_name . '" not defined.';
+
+					}
+				?>
+				
+				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+				<?php
+					foreach ($parent as $key => $value) {
+						$paper_items = '';
+						
+						if ( empty($value["child"]) ) {
+							$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a><!-- menu_item -->';
 						} else {
-							$paper_items = 'Menu "' . $menu_name . '" not defined.';
+							$paper_items .= '<paper-submenu>';
+							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span></paper-item>';
+							$paper_items .= '<paper-menu class="menu-content sublist">';
+							foreach ($value["child"] as $key => $value) {
+								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
+							}
+							$paper_items .= '</paper-menu>';
+							$paper_items .= '</paper-submenu>';
 						}
 						
 						echo $paper_items;
-					?>
+					}
+				?>
 				</paper-menu>
+				
 				<p>
 					<small>&copy; <?php echo date('Y'); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
 				</p>

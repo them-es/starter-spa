@@ -147,7 +147,8 @@ img {
 .paper-menu > .iron-selected {
 	color: var(--default-primary-color);
 }
-.paper-menu a {
+.paper-menu a,
+paper-item {
 	text-decoration: none;
 	color: var(--menu-link-color);
 	font-family: 'Roboto', 'Noto', sans-serif;
@@ -161,7 +162,8 @@ img {
 	flex-direction: row;
 	padding: 0 16px;
 }
-.paper-menu a span {
+.paper-menu a span,
+paper-item span {
 	display: -ms-flexbox;
 	display: -webkit-flex;
 	display: flex;
@@ -173,6 +175,10 @@ img {
 	line-height: 24px;
 	min-height: 48px;
 	width: 100%;
+}
+.paper-menu .sublist span {
+	padding-left: 20px;
+	padding-right: 20px;
 }
 
 #paperToggle {

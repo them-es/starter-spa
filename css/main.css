@@ -12,3 +12,20 @@ body {
 .container.narrow {
 	padding: 0 0.5em;
 }
+
+.tt-menu {
+	background-color: #FFF;
+}
+.tt-suggestion {
+	padding: 5px;
+}
+
+/**
+ * Wordpress customization
+ */
+
+
+/* If WP-Adminbar is visible */
+body.admin-bar #wrapper {
+	top: 32px;
+}
