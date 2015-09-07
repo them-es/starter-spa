@@ -60,7 +60,9 @@
 		},
 		formatTimestamp: function(value) {
 			if (value) {
-				return new Date(Date.parse(value)).toLocaleDateString();
+				var date = new Date(Date.parse(value)),
+					months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+				return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
 			}
 		},
 		getUser: function(e) {
