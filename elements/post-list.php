@@ -3,6 +3,7 @@
 ?>
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<!--link rel="import" href="../bower_components/iron-image/iron-image.html"--><!-- Already loaded in "elements.html" -->
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="./post-card.html">
 

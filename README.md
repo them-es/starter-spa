@@ -22,7 +22,7 @@ If you want to see it in action or want to download a customized Theme for free,
 ## Getting Started
 * Download the Starter Theme under [http://them.es/starter-SPA](http://them.es/starter-SPA) and unzip it in a new Project folder
 * Prerequisites: [Bower](https://bower.io) needs to be installed on your system
-* Open the Project folder in Terminal and run this command to install all required packages
+* Open the **Project directory** in Terminal and run this command to install all required packages
 * `$ bower install`
 * Upload the Theme to your WordPress instance and activate it
 * Install and activate the [WP REST API Plugin](https://wordpress.org/plugins/json-rest-api)

@@ -511,10 +511,6 @@ $theme_version = "1.0";
 			'main-menu' => 'Main Navigation Menu'
 		) );
 	}
-
-	// Custom Nav Walker: wp_polymer_navwalker()
-	$custom_walker = get_template_directory() . '/inc/wp_polymer_navwalker.php';
-	if ( is_readable($custom_walker) ) require_once($custom_walker);
 	
 	
 	/**
