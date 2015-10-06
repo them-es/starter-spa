@@ -12,23 +12,23 @@
 		$page_for_posts = get_option( 'page_for_posts' );
 		$search_enabled = get_theme_mod('search_enabled', '1'); // get custom meta-value
 		
-		$dir = esc_url( get_template_directory_uri() );
+		$dir = trailingslashit( esc_url( get_template_directory_uri() ) );
 	?>
 	
 	<!-- Initialize Web components -->
-	<script src="<?php echo $dir; ?>/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-	<link rel="import" href="<?php echo $dir; ?>/elements.html">
+	<script src="<?php echo $dir; ?>bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="<?php echo $dir; ?>elements.html">
 	
 	<?php if ( wp_count_posts()->publish >= 1 ) : ?>
-		<link rel="import" href="<?php echo $dir; ?>/elements/post-list.php">
+		<link rel="import" href="<?php echo $dir; ?>elements/post-list.php">
 	<?php endif; ?>
 	
 	<?php if ( isset($search_enabled) && $search_enabled == "1" ) : ?>
-		<link rel="import" href="<?php echo $dir; ?>/elements/search.php">
+		<link rel="import" href="<?php echo $dir; ?>elements/search.php">
 	<?php endif; ?>
 	
 	<!-- Routes -->
-	<link rel="import" href="<?php echo $dir; ?>/elements/routing.php">
+	<link rel="import" href="<?php echo $dir; ?>elements/routing.php">
 </head>
 
 <body <?php body_class('fullbleed layout vertical'); ?> unresolved>
@@ -54,75 +54,21 @@
 			<div class="layout vertical">
 				<post-search></post-search><!-- Search component -->
 				
+				<paper-menu class="list">
 				<?php
-					// "$menu_name" defined in functions.php
-					// Demo: https://github.com/PolymerElements/paper-menu/blob/master/demo/index.html
-
-					$parent = array();
-					if ( ($locations = get_nav_menu_locations()) && isset($locations[$menu_name]) ) {
-						
-						$menu = wp_get_nav_menu_object($locations[$menu_name]);
-						$menu_items = wp_get_nav_menu_items($menu->term_id);
-						
-						$parent_id = 0;
-						
-						foreach( (array)$menu_items as $key => $menu_item ) {
-							
-							if ( $menu_item->menu_item_parent == 0 ) {
-								
-								$id = $menu_item->object_id; // = Page ID
-								$post_data = get_post($id, ARRAY_A);
-    							$slug = $post_data['post_name']; // = Page Slug
-								//$url = $menu_item->url;
-								$url = themes_starter_site_base() . '/' . $slug;
-								$title = $menu_item->title;
-								$parent_id = $menu_item->db_id;
-								
-								if ( $id == get_option('page_on_front') ) {
-									$slug = 'index';
-									$url = themes_starter_site_base() . '/';
-								}
-								
-								array_push( $parent, array("title" => $title, "url" => $url, "slug" => $slug, "child" => array()) );
-								
-							} else if ( $menu_item->menu_item_parent == $parent_id ) {
-								
-								$id = $menu_item->object_id; // = Page ID
-								$post_data = get_post($id, ARRAY_A);
-    							$slug = $post_data['post_name']; // = Page Slug
-								//$url = $menu_item->url;
-								$url = themes_starter_site_base() . '/' . $slug;
-								$title = $menu_item->title;
-								
-								if ( $id == get_option('page_on_front') ) {
-									$slug = 'index';
-									$url = themes_starter_site_base() . '/';
-								}
-								
-								array_push( $parent[count($parent) - 1]["child"], array("title" => $title, "url" => $url, "slug" => $slug) );
-							} else {
-								// do nothing
-							}
-						}
-						
-					} else {
-
-						echo 'Menu "' . $menu_name . '" not defined.';
-
-					}
-				?>
-				
-				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
-				<?php
-					foreach ($parent as $key => $value) {
+					// "$menu_items_parentpages" defined in functions.php
+					
+					foreach ($menu_items_parentpages as $key => $value) {
 						$paper_items = '';
 						
 						if ( empty($value["child"]) ) {
-							$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a><!-- menu_item -->';
+							// No Parent page
+							$paper_items .= '<a data-route="' . $slug . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a><!-- menu_item -->';
 						} else {
+							// Parent page
 							$paper_items .= '<paper-submenu>';
-							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span></paper-item>';
-							$paper_items .= '<paper-menu class="menu-content sublist">';
+							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
+							$paper_items .= '<paper-menu class="menu-content sublist" multi>';
 							foreach ($value["child"] as $key => $value) {
 								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
 							}
@@ -184,7 +130,7 @@
 					<!-- Content Pages -->
 					<?php
 						$section = '';
-
+						
 						// Get all "published" Pages
 						$pages = get_pages( array('post_status' => 'publish') );
 						foreach ( (array) $pages as $page ) {
