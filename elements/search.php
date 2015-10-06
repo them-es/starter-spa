@@ -67,7 +67,7 @@
 				}
 				page('/' + d.slug);
 			} else {
-				page("/<?php $blog_page = get_option('page_for_posts'); if ( is_page($blog_page) ) { $post = get_post($blog_page); echo $post->post_name; } ?>"); // Blog
+				page("/<?php $blog_page = get_option('page_for_posts'); $post = get_post($blog_page); echo $post->post_name; ?>"); // Blog
 			}
 			$e.preventDefault();
 		});
