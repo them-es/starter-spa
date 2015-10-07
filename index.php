@@ -12,23 +12,23 @@
 		$page_for_posts = get_option( 'page_for_posts' );
 		$search_enabled = get_theme_mod('search_enabled', '1'); // get custom meta-value
 		
-		$dir = esc_url( get_template_directory_uri() );
+		$menu_items_pages = themes_starter_get_menu_items($menu_name); // see functions.php
+		$menu_items_parents = themes_starter_get_parents_children($menu_name); // see functions.php
+		
+		$dir = trailingslashit( esc_url( get_template_directory_uri() ) );
 	?>
 	
 	<!-- Initialize Web components -->
-	<script src="<?php echo $dir; ?>/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-	<link rel="import" href="<?php echo $dir; ?>/elements.html">
+	<script src="<?php echo $dir; ?>bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<link rel="import" href="<?php echo $dir; ?>elements.html">
 	
 	<?php if ( wp_count_posts()->publish >= 1 ) : ?>
-		<link rel="import" href="<?php echo $dir; ?>/elements/post-list.php">
+		<link rel="import" href="<?php echo $dir; ?>elements/post-list.php">
 	<?php endif; ?>
 	
 	<?php if ( isset($search_enabled) && $search_enabled == "1" ) : ?>
-		<link rel="import" href="<?php echo $dir; ?>/elements/search.php">
+		<link rel="import" href="<?php echo $dir; ?>elements/search.php">
 	<?php endif; ?>
-	
-	<!-- Routes -->
-	<link rel="import" href="<?php echo $dir; ?>/elements/routing.php">
 </head>
 
 <body <?php body_class('fullbleed layout vertical'); ?> unresolved>
@@ -54,74 +54,21 @@
 			<div class="layout vertical">
 				<post-search></post-search><!-- Search component -->
 				
-				<?php
-					// "$menu_name" defined in functions.php
-					// Demo: https://github.com/PolymerElements/paper-menu/blob/master/demo/index.html
-
-					$parent = array();
-					if ( ($locations = get_nav_menu_locations()) && isset($locations[$menu_name]) ) {
-						
-						$menu = wp_get_nav_menu_object($locations[$menu_name]);
-						$menu_items = wp_get_nav_menu_items($menu->term_id);
-						
-						$parent_id = 0;
-						
-						foreach( (array)$menu_items as $key => $menu_item ) {
-							
-							if ( $menu_item->menu_item_parent == 0 ) {
-								
-								$id = $menu_item->object_id; // = Page ID
-								$post_data = get_post($id, ARRAY_A);
-    							$slug = $post_data['post_name']; // = Page Slug
-								//$url = $menu_item->url;
-								$url = themes_starter_site_base() . '/' . $slug;
-								$title = $menu_item->title;
-								$parent_id = $menu_item->db_id;
-								
-								if ( $id == get_option('page_on_front') ) {
-									$slug = 'index';
-									$url = themes_starter_site_base() . '/';
-								}
-								
-								array_push( $parent, array("title" => $title, "url" => $url, "slug" => $slug, "child" => array()) );
-								
-							} else if ( $menu_item->menu_item_parent == $parent_id ) {
-								
-								$id = $menu_item->object_id; // = Page ID
-								$post_data = get_post($id, ARRAY_A);
-    							$slug = $post_data['post_name']; // = Page Slug
-								//$url = $menu_item->url;
-								$url = themes_starter_site_base() . '/' . $slug;
-								$title = $menu_item->title;
-								
-								if ( $id == get_option('page_on_front') ) {
-									$slug = 'index';
-									$url = themes_starter_site_base() . '/';
-								}
-								
-								array_push( $parent[count($parent) - 1]["child"], array("title" => $title, "url" => $url, "slug" => $slug) );
-							} else {
-								// do nothing
-							}
-						}
-						
-					} else {
-
-						echo 'Menu "' . $menu_name . '" not defined.';
-
-					}
-				?>
-				
 				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
 				<?php
-					foreach ($parent as $key => $value) {
+					// Get menu items based on type: "$menu_items_parents" defined on top
+					foreach ($menu_items_parents as $key => $value) {
+						$title = $value["title"];
+						$slug = $value["slug"];
+						$url = $value["url"];
+						
 						$paper_items = '';
 						
 						if ( empty($value["child"]) ) {
-							$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a><!-- menu_item -->';
+							$paper_items .= '<a data-route="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a><!-- menu_item -->';
 						} else {
 							$paper_items .= '<paper-submenu>';
-							$paper_items .= '<paper-item class="menu-trigger"><span>' . $value["title"] . '</span></paper-item>';
+							$paper_items .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
 							$paper_items .= '<paper-menu class="menu-content sublist">';
 							foreach ($value["child"] as $key => $value) {
 								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
@@ -185,27 +132,20 @@
 					<?php
 						$section = '';
 
-						// Get all "published" Pages
-						$pages = get_pages( array('post_status' => 'publish') );
-						foreach ( (array) $pages as $page ) {
-							$id = $page->ID; // = Page ID
-							$post_data = get_post($id, ARRAY_A);
-							$slug = $post_data['post_name']; // = Page Slug
+						// Get all menu items: "$menu_items_pages" defined on top
+						foreach ($menu_items_pages as $key => $value) {
+							$id = $value["pageid"];
 							
-							if ( $id == get_option('page_on_front') ) {
-								$slug = 'index';
-							}
-
-							$section .= '<section data-route="' . $slug . '">' . PHP_EOL;
-							//$section .= '<h1 class="title">' . apply_filters('the_title', $page->post_title) . '</h1>' . PHP_EOL;
+							$section .= '<section data-route="' . $value["slug"] . '">' . PHP_EOL;
+							//$section .= '<h1 class="title">' . apply_filters('the_title', $value["title"]) . '</h1>' . PHP_EOL;
 							$section .= '<article>' . PHP_EOL;
-
+							
 								if ( $id == get_option('page_for_posts') ) {
 									$section .= '<post-list show="all"></post-list>'; // Custom Web Component
 								} else {
-									$section .= apply_filters('the_content', $page->post_content) . PHP_EOL;
+									$section .= apply_filters('the_content', get_post_field('post_content', $id) ) . PHP_EOL;
 								}
-
+							
 							$section .= '</article>' . PHP_EOL;
 							$section .= '</section>' . PHP_EOL;
 						}
@@ -224,10 +164,47 @@
 		</paper-scroll-header-panel>
 
 	</paper-drawer-panel><!-- /#main -->
-
-	<?php wp_footer(); ?>
-
+	
 	</template>
+	
+	<script src="<?php echo $dir; ?>bower_components/page.js/page.js"></script>
+	<script>
+		window.addEventListener('WebComponentsReady', function() {
+			// Using Page.js for routing
+			var app = document.querySelector("#app");
+			
+			page.base('<?php echo themes_starter_site_base(); ?>');
+			
+			<?php
+				$routes = '';
+				
+				// Get all menu items: "$menu_items_pages" defined on top
+				foreach ($menu_items_pages as $key => $value) {
+					$id = $value["pageid"];
+					$slug = $value["slug"]; // = Page Slug
+					$href = '/' . $slug;
+					
+					if ( $id == get_option('page_on_front') ) {
+						$slug = 'index';
+						$href = '/';
+					}
+
+					$routes .= 'page("' . $href . '", function() { app.route = "' . $slug . '"; app.routetitle = "' . apply_filters("the_title", $value["title"]) . '"; });' . PHP_EOL;
+				}
+				
+				echo $routes;
+			?>
+			
+			// Not found
+			page('*', function() { app.route = "404"; });
+			
+			page({
+				hashbang: false
+			});
+		});
+	</script>
+	
+	<?php wp_footer(); ?>
 
 </body>
 </html>

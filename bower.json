@@ -9,8 +9,11 @@
   "license": "GPLv2+",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-	"polymer-paper-elements": "PolymerElements/paper-elements#^1.0.0",
-	"polymer-iron-elements": "PolymerElements/iron-elements#^1.0.0",
+	"paper-elements": "PolymerElements/paper-elements#^1.0.0",
+    "iron-pages": "PolymerElements/iron-pages",
+	"iron-ajax": "PolymerElements/iron-ajax",
+	"iron-icons": "PolymerElements/iron-icons",
+	"iron-image": "PolymerElements/iron-image",
 	"page.js": "visionmedia/page.js",
 	"typeahead.js": "twitter/typeahead.js"
   }

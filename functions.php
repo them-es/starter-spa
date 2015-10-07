@@ -41,6 +41,100 @@ $theme_version = "1.0";
 	 */
 	$menu_name = 'main-menu';
 	
+	function themes_starter_get_menu_items($menu_name) {
+		
+		$menu_items_pages = array();
+		if ( ($locations = get_nav_menu_locations()) && isset($locations[$menu_name]) ) {
+
+			$menu = wp_get_nav_menu_object($locations[$menu_name]);
+			$menu_items = wp_get_nav_menu_items($menu->term_id);
+
+			$count = 0;
+			
+			foreach( (array)$menu_items as $key => $menu_item ) {
+
+				$id = $menu_item->object_id; // = Page ID
+				
+				$post_data = get_post($id, ARRAY_A);
+				$slug = $post_data['post_name']; // = Page Slug
+				
+				// $url = $menu_item->url;
+				$url = themes_starter_site_base() . '/' . $slug;
+				$title = apply_filters("the_title", $menu_item->title);
+
+				if ( $id == get_option('page_on_front') ) {
+					$slug = 'index';
+					$url = themes_starter_site_base() . '/';
+				}
+
+				array_push( $menu_items_pages, array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "index" => $count) ); // e.g. $value["pageid"]
+				
+				$count++;
+			}
+
+			return $menu_items_pages; // All pages in menu
+
+		}
+		
+	}
+	
+	function themes_starter_get_parents_children($menu_name) {
+		
+		$menu_items_pages = array();
+		if ( ($locations = get_nav_menu_locations()) && isset($locations[$menu_name]) ) {
+
+			$menu = wp_get_nav_menu_object($locations[$menu_name]);
+			$menu_items = wp_get_nav_menu_items($menu->term_id);
+
+			$parent_id = 0;
+			$count = 0;
+			
+			foreach( (array)$menu_items as $key => $menu_item ) {
+
+				$id = $menu_item->object_id; // = Page ID
+				
+				$post_data = get_post($id, ARRAY_A);
+				$slug = $post_data['post_name']; // = Page Slug
+				
+				//$url = $menu_item->url;
+				$url = themes_starter_site_base() . '/' . $slug;
+				$title = $menu_item->title;
+
+				if ( $id == get_option('page_on_front') ) {
+					$slug = 'index';
+					$url = themes_starter_site_base() . '/';
+				}
+
+				if ( $menu_item->menu_item_parent == 0 ) {
+
+					$parent_id = $menu_item->db_id;
+					// Child
+					array_push( $menu_items_pages, array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "child" => array(), "index" => $count) );
+					
+				} else if ( $menu_item->menu_item_parent == $parent_id ) {
+
+					if ( $id == get_option('page_on_front') ) {
+						$slug = 'index';
+						$url = themes_starter_site_base() . '/';
+					}
+					// Parent
+					array_push( $menu_items_pages[count($menu_items_pages) - 1]["child"], array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "index" => $count) );
+					
+				} else {
+					
+					
+					
+				}
+				
+				$count++;
+			}
+			
+			return $menu_items_pages; // Pages based on type (Parent/Child)
+
+		}
+		
+	}
+	
 	
 	/**
 	 * General Theme Settings
