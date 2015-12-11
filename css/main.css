@@ -20,6 +20,12 @@ body {
 	padding: 5px;
 }
 
+paper-menu a > *,
+paper-menu paper-item > *,
+paper-menu paper-icon-item > * {
+	pointer-events: none;
+}
+
 /**
  * Wordpress customization
  */

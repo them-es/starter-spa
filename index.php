@@ -69,7 +69,7 @@
 						} else {
 							$paper_items .= '<paper-submenu>';
 							$paper_items .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
-							$paper_items .= '<paper-menu class="menu-content sublist">';
+							$paper_items .= '<paper-menu class="menu-content">';
 							foreach ($value["child"] as $key => $value) {
 								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
 							}
@@ -181,6 +181,7 @@
 				// Get all menu items: "$menu_items_pages" defined on top
 				foreach ($menu_items_pages as $key => $value) {
 					$id = $value["pageid"];
+					$title = apply_filters("the_title", $value["title"]); // = Page Slug
 					$slug = $value["slug"]; // = Page Slug
 					$href = '/' . $slug;
 					
@@ -189,7 +190,7 @@
 						$href = '/';
 					}
 
-					$routes .= 'page("' . $href . '", function() { app.route = "' . $slug . '"; app.routetitle = "' . apply_filters("the_title", $value["title"]) . '"; });' . PHP_EOL;
+					$routes .= 'page("' . $href . '", function() { document.title = "' . $title . '"; /* change header title */ app.routetitle = "' . $title . '"; app.route = "' . $slug . '"; });' . PHP_EOL;
 				}
 				
 				echo $routes;
