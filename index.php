@@ -197,7 +197,13 @@
 			?>
 			
 			// WP-admin links
-			page('/wp-admin/*', function(ctx, next) { location.href = "<?php echo themes_starter_site_base(); ?>" + ctx.path; });
+			<?php
+				if ( !is_customize_preview() ) {
+			?>
+				page('/wp-admin/*', function(ctx, next) { location.href = "<?php echo themes_starter_site_base(); ?>" + ctx.path; });
+			<?php
+				}
+			?>
 			
 			// Not found
 			page('*', function() { app.route = "404"; });
