@@ -64,9 +64,9 @@
 						
 						$paper_items = '';
 						
-						if ( empty($value["child"]) ) {
+						if ( empty($value["child"]) ) :
 							$paper_items .= '<a data-route="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a><!-- menu_item -->';
-						} else {
+						else:
 							$paper_items .= '<paper-submenu>';
 							$paper_items .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
 							$paper_items .= '<paper-menu class="menu-content">';
@@ -75,7 +75,7 @@
 							}
 							$paper_items .= '</paper-menu>';
 							$paper_items .= '</paper-submenu>';
-						}
+						endif;
 						
 						echo $paper_items;
 					}
@@ -121,9 +121,9 @@
 						$exit = true;
 					endif;
 					
-					if (isset($exit)) {
+					if (isset($exit)) :
 						die();
-					}
+					endif;
 				?>
 				
 				<iron-pages attr-for-selected="data-route" selected="{{route}}">
@@ -140,11 +140,11 @@
 							//$section .= '<h1 class="title">' . apply_filters('the_title', $value["title"]) . '</h1>' . PHP_EOL;
 							$section .= '<article>' . PHP_EOL;
 							
-								if ( $id == get_option('page_for_posts') ) {
+								if ( $id == get_option('page_for_posts') ) :
 									$section .= '<post-list show="all"></post-list>'; // Custom Web Component
-								} else {
+								else:
 									$section .= apply_filters('the_content', get_post_field('post_content', $id) ) . PHP_EOL;
-								}
+								endif;
 							
 							$section .= '</article>' . PHP_EOL;
 							$section .= '</section>' . PHP_EOL;
@@ -198,11 +198,11 @@
 			
 			// WP-admin links
 			<?php
-				if ( !is_customize_preview() ) {
+				if ( !is_customize_preview() ) :
 			?>
 				page('/wp-admin/*', function(ctx, next) { location.href = "<?php echo themes_starter_site_base(); ?>" + ctx.path; });
 			<?php
-				}
+				endif;
 			?>
 			
 			// Not found

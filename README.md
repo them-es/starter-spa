@@ -9,7 +9,7 @@ If you want to see it in action or want to download a customized Theme for free,
 * WordPress Theme
 * [Page.js](https://github.com/visionmedia/page.js) Routing
 * [typeahead.js](https://github.com/twitter/typeahead.js) Autocomplete for the Search Component
-* Bower configuration to install Polymer and required Components
+* Bower configuration to install Polymer and keep required Components updated
 * Theme Customizer API
 * 1 Menu
 * 1 Blog section
