@@ -172,6 +172,24 @@
 	</paper-drawer-panel><!-- /#main -->
 	
 	</template>
+
+	<?php
+		// Routing: Make sure that Admin bar links are working "onclick"
+		if ( is_admin_bar_showing() ) :
+	?>
+		<script>
+			// WP-admin links
+			(function ($) {
+				$(document).ready(function () {
+					$("#wp-toolbar a").on("click", function () {
+						location.href = $(this).attr("href");
+					});
+				});
+			}(jQuery));
+		</script>
+	<?php
+		endif;
+	?>
 	
 	<?php wp_footer(); ?>
 

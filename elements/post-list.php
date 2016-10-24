@@ -18,7 +18,7 @@
 		}
 	</style>
 	<template>
-		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( get_home_url() ) . 'wp-json/wp/v2/posts'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
+		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'posts'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
 		
 		<paper-material elevation="4" class="container narrow">
 			<!--paper-checkbox id="load_users" checked disabled on-change="usersChanged"> <?php _e( 'All Users', 'my-theme' ); ?></paper-checkbox-->
