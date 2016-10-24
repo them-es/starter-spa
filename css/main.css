@@ -1,8 +1,8 @@
 /* General styles */
 
 body {
-    font-family: 'Roboto', 'Noto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: #333;
+	font-family: 'Roboto', 'Noto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	color: #333;
 	background: #FAFAFA;
 }
 
@@ -34,4 +34,15 @@ paper-menu paper-icon-item > * {
 /* If WP-Adminbar is visible */
 body.admin-bar #wrapper {
 	top: 32px;
+}
+
+body.admin-bar .post-edit-link {
+	color: #FFF !important;
+	font-weight: normal !important;
+	text-decoration: none !important;
+}
+body.admin-bar .post-edit-link::before {
+	content: "\270E";
+	display: inline-block;
+	margin-right: 5px;
 }

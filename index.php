@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
-    <meta http-equiv="content-type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<?php
 		wp_head();
-		
+
+		$page_on_front = get_option( 'page_on_front' );
 		$page_for_posts = get_option( 'page_for_posts' );
-		$search_enabled = get_theme_mod('search_enabled', '1'); // get custom meta-value
-		
-		$menu_items_pages = themes_starter_get_menu_items($menu_name); // see functions.php
-		$menu_items_parents = themes_starter_get_parents_children($menu_name); // see functions.php
-		
+		$search_enabled = get_theme_mod( 'search_enabled', '1' ); // get custom meta-value
+
+		$menu_items_pages = themes_starter_get_menu_items( $menu_name ); // see functions.php
+		$menu_items_parents = themes_starter_get_parents_children( $menu_name ); // see functions.php
+
 		$dir = trailingslashit( esc_url( get_template_directory_uri() ) );
 	?>
 	
@@ -26,27 +27,27 @@
 		<link rel="import" href="<?php echo $dir; ?>elements/post-list.php">
 	<?php endif; ?>
 	
-	<?php if ( isset($search_enabled) && $search_enabled == "1" ) : ?>
+	<?php if ( isset( $search_enabled ) && '1' === $search_enabled ) : ?>
 		<link rel="import" href="<?php echo $dir; ?>elements/search.php">
 	<?php endif; ?>
 </head>
 
-<body <?php body_class('fullbleed layout vertical'); ?> unresolved>
+<body <?php body_class( 'fullbleed layout vertical' ); ?> unresolved>
 	
 	<template id="app" is="dom-bind">
 	
 	<paper-drawer-panel id="wrapper">
-
+		
 		<div id="nav" drawer>
 			<a class="navbar-brand flex" href="<?php echo home_url(); ?>" rel="home">
 				<?php
-					$header_logo = get_theme_mod('header_logo'); // get custom meta-value
+					$header_logo = get_theme_mod( 'header_logo' ); // get custom meta-value
 
-					if ( isset($header_logo) && $header_logo != "" ):
+					if ( isset( $header_logo ) && ! empty( $header_logo ) ) :
 				?>
 					<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
-				<?php 
-					else:
+				<?php
+					else :
 						echo esc_attr( get_bloginfo( 'name', 'display' ) );
 					endif;
 				?>
@@ -54,36 +55,41 @@
 			<div class="layout vertical">
 				<post-search></post-search><!-- Search component -->
 				
-				<paper-menu class="list" attr-for-selected="data-route" selected="{{route}}">
+				<app-location route="{{route}}"></app-location>
+				<app-route route="{{route}}" pattern="./:page" data="{{pageData}}"></app-route>
+
+				<paper-menu class="list" selected="{{pageData.page}}" attr-for-selected="data-page" role="navigation">
 				<?php
 					// Get menu items based on type: "$menu_items_parents" defined on top
-					foreach ($menu_items_parents as $key => $value) {
+					foreach ( $menu_items_parents as $key => $value ) {
 						$title = $value["title"];
 						$slug = $value["slug"];
-						$url = $value["url"];
-						
-						$paper_items = '';
-						
-						if ( empty($value["child"]) ) :
-							$paper_items .= '<a data-route="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a><!-- menu_item -->';
-						else:
-							$paper_items .= '<paper-submenu>';
-							$paper_items .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
-							$paper_items .= '<paper-menu class="menu-content">';
-							foreach ($value["child"] as $key => $value) {
-								$paper_items .= '<a data-route="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
-							}
-							$paper_items .= '</paper-menu>';
-							$paper_items .= '</paper-submenu>';
+						//$url = $value["url"];
+
+						$child = $value["child"];
+
+						$paper_item = '';
+
+						if ( empty( $child ) ) :
+							$paper_item .= '<a data-page="' . $slug . '" href="' . $value["url"] . '"><span>' . $title . '</span></a><!-- menu_item -->';
+						else :
+							$paper_item .= '<paper-submenu>';
+								$paper_item .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
+								$paper_item .= '<paper-menu class="menu-content" selected="{{pageData.page}}" attr-for-selected="data-page">';
+									foreach ( $child as $key => $value ) {
+										$paper_item .= '<a data-page="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
+									}
+								$paper_item .= '</paper-menu>';
+							$paper_item .= '</paper-submenu>';
 						endif;
-						
-						echo $paper_items;
+
+						echo $paper_item;
 					}
 				?>
 				</paper-menu>
 				
 				<p>
-					<small>&copy; <?php echo date('Y'); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
+					<small>&copy; <?php echo date( 'Y' ); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
 				</p>
 			</div>
 		</div>
@@ -98,7 +104,7 @@
 					
 				</div>
 				<div class="bottom bottom-container center horizontal layout">
-					<span class="title">{{routetitle}}</span><span class="bottom-title">{{current_user}}</span>
+					<span class="title">{{pagetitle}}</span>
 				</div><!-- Sub title -->
 			</paper-toolbar>
 			
@@ -108,111 +114,64 @@
 					/**
 					 * Check if menu has been setup. "$menu_name" defined in functions.php
 					 */
-					if ( !has_nav_menu( $menu_name ) ) :
+					if ( ! has_nav_menu( $menu_name ) ) :
 						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Setup Menu <strong>' . $menu_name . '</strong></paper-material>';
 						$exit = true;
 					endif;
-					
+
 					/**
 					 * Check if WP-API (http://wp-api.org) Plugin is installed
 					 */
-					if ( !class_exists( 'WP_JSON_Posts' ) ) :
-						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Install the WP REST API Plugin <a href="https://wordpress.org/plugins/json-rest-api/">wp-api.org</a></paper-material>';
+					if ( ! class_exists( 'WP_REST_Controller' ) ) :
+						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Install the WP REST API Plugin <a href="http://v2.wp-api.org">wp-api.org</a></paper-material>';
 						$exit = true;
 					endif;
-					
-					if (isset($exit)) :
+
+					if ( isset( $exit ) ) :
 						die();
 					endif;
 				?>
-				
-				<iron-pages attr-for-selected="data-route" selected="{{route}}">
+
+				<neon-animated-pages id="pages" selected="{{pageData.page}}" attr-for-selected="data-page" fallback-selection="index" entry-animation="slide-from-left-animation" exit-animation="slide-right-animation" role="main">
 					
 					<!-- Content Pages -->
 					<?php
 						$section = '';
-
+						
 						// Get all menu items: "$menu_items_pages" defined on top
-						foreach ($menu_items_pages as $key => $value) {
-							$id = $value["pageid"];
-							
-							$section .= '<section data-route="' . $value["slug"] . '">' . PHP_EOL;
-							//$section .= '<h1 class="title">' . apply_filters('the_title', $value["title"]) . '</h1>' . PHP_EOL;
-							$section .= '<article>' . PHP_EOL;
-							
-								if ( $id == get_option('page_for_posts') ) :
-									$section .= '<post-list show="all"></post-list>'; // Custom Web Component
-								else:
-									$section .= apply_filters('the_content', get_post_field('post_content', $id) ) . PHP_EOL;
-								endif;
-							
-							$section .= '</article>' . PHP_EOL;
-							$section .= '</section>' . PHP_EOL;
+						foreach ( $menu_items_pages as $key => $value ) {
+							$section .= '<neon-animatable data-page="' . $value["slug"] . '">' . PHP_EOL;
+								$section .= '<article>' . PHP_EOL;
+									$id = $value["pageid"];
+									
+									if ( $id === $page_for_posts ) : // Blog Posts page: /wp-admin/options-reading.php
+										$section .= '<post-list show="all"></post-list>'; // Custom Web Component
+									else :
+										$section .= apply_filters('the_content', get_post_field( 'post_content', $id ) ) . PHP_EOL;
+									endif;
+									
+								$section .= '</article>' . PHP_EOL;
+							$section .= '</neon-animatable>' . PHP_EOL;
 						}
+						
+						// 404 - Not found
+						$section .= '<neon-animatable data-page="404">' . PHP_EOL;
+							$section .= '<article>' . PHP_EOL;
+								$section .= '<p>' . __( "Page not found", "my-theme" ) . '</p>' . PHP_EOL;
+							$section .= '</article>' . PHP_EOL;
+						$section .= '</neon-animatable>' . PHP_EOL;
 						
 						echo $section;
 					?>
 					
-					<!-- Not found -->
-					<section data-route="404">
-						<h1 class="title"><?php _e( '404 / Not found', 'my-theme' ); ?></h1>
-					</section>
-					
-				</iron-pages>
-
+				</neon-animated-pages>
+				
 			</div><!-- /.container -->
 		</paper-scroll-header-panel>
-
+		
 	</paper-drawer-panel><!-- /#main -->
 	
 	</template>
-	
-	<script src="<?php echo $dir; ?>bower_components/page.js/page.js"></script>
-	<script>
-		window.addEventListener('WebComponentsReady', function() {
-			// Using Page.js for routing
-			var app = document.querySelector("#app");
-			
-			page.base('<?php echo themes_starter_site_base(); ?>');
-			
-			<?php
-				$routes = '';
-				
-				// Get all menu items: "$menu_items_pages" defined on top
-				foreach ($menu_items_pages as $key => $value) {
-					$id = $value["pageid"];
-					$title = apply_filters("the_title", $value["title"]); // = Page Slug
-					$slug = $value["slug"]; // = Page Slug
-					$href = '/' . $slug;
-					
-					if ( $id == get_option('page_on_front') ) {
-						$slug = 'index';
-						$href = '/';
-					}
-
-					$routes .= 'page("' . $href . '", function() { document.title = "' . $title . '"; /* change header title */ app.routetitle = "' . $title . '"; app.route = "' . $slug . '"; });' . PHP_EOL;
-				}
-				
-				echo $routes;
-			?>
-			
-			// WP-admin links
-			<?php
-				if ( !is_customize_preview() ) :
-			?>
-				page('/wp-admin/*', function(ctx, next) { location.href = "<?php echo themes_starter_site_base(); ?>" + ctx.path; });
-			<?php
-				endif;
-			?>
-			
-			// Not found
-			page('*', function() { app.route = "404"; });
-			
-			page({
-				hashbang: false
-			});
-		});
-	</script>
 	
 	<?php wp_footer(); ?>
 

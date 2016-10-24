@@ -1,13 +1,16 @@
+# Loco Gettext template
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: them.es Starter Theme v1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: Tue Apr 12 2016 16:11:44 GMT+0200 (CEST)\n"
+"POT-Revision-Date: Tue Apr 12 2016 16:06:37 GMT+0200 (CEST)\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: them.es <themes@klicc.at>\n"
 "Language-Team: \n"
-"Language: German\n"
-"Plural-Forms: nplurals=2; plural=n != 1\n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,8 +29,53 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Loco-Target-Locale: de_DE"
 
+#: ../functions.php:247
+msgid "Page "
+msgstr ""
+
+#: ../functions.php:335
+msgid "Older posts"
+msgstr ""
+
+#: ../functions.php:336
+msgid "Newer posts"
+msgstr ""
+
+#: ../functions.php:423
+#, php-format
+msgid ""
+"<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" "
+"rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" "
+"pubdate>%4$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by "
+"</span> <span class=\"author-meta vcard\"><a class=\"url fn n\" href=\"%5$s\" "
+"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
+msgstr ""
+
+#: ../functions.php:429
+#, php-format
+msgid "View all posts by %s"
+msgstr ""
+
+#: ../functions.php:448
+msgid ""
+"This content is password protected. To view it please enter your password "
+"below."
+msgstr ""
+
+#: ../functions.php:451
+msgid "Password"
+msgstr ""
+
+#: ../functions.php:452
+msgid "Submit"
+msgstr ""
+
 #: ../functions.php:490
 msgid "Pingback:"
+msgstr ""
+
+#: ../functions.php:490 ../functions.php:517
+msgid "Edit"
 msgstr ""
 
 #. translators: 1: comment author, 2: date and time
@@ -36,17 +84,68 @@ msgstr ""
 msgid "%1$s, %2$s"
 msgstr ""
 
+#. translators: 1: date, 2: time
+#: ../functions.php:512
+#, php-format
+msgid "%1$s ago"
+msgstr ""
+
+#: ../functions.php:521
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:530
+msgid "Reply"
+msgstr ""
+
 #: ../functions.php:560
 msgid "Name"
 msgstr ""
 
+#: ../functions.php:562
+msgid "Email"
+msgstr ""
+
+#: ../functions.php:570
+msgid "Comment"
+msgstr ""
+
+#: ../functions.php:572
+#, php-format
+msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
+msgstr ""
+
+#: ../functions.php:574
+#, php-format
+msgid ""
+"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of this "
+"account\">Log out?</a>"
+msgstr ""
+
+#: ../functions.php:576
+msgid "Your Email address will not be published."
+msgstr ""
+
+#: ../functions.php:582
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: ../functions.php:583
+msgid "Cancel reply"
+msgstr ""
+
+#: ../functions.php:584
+msgid "Post Comment"
+msgstr ""
+
 #: ../index.php:158
 msgid "404 / Not found"
-msgstr "404 / Nicht gefunden"
+msgstr ""
 
 #: ../elements/post-list.php:24
 msgid "All Users"
-msgstr "Alle User"
+msgstr ""
 
 #: ../elements/post-list.php:27
 msgid "Order by Timestamp"
@@ -56,8 +155,20 @@ msgstr ""
 msgid "Order by Title"
 msgstr ""
 
+#: ../elements/search.php:38
+msgid "Search"
+msgstr ""
+
+#: ../inc/customizer.php:37
+msgid "Upload Header Logo"
+msgstr ""
+
 #: ../inc/customizer.php:38
 msgid "Height: &gt;80px"
+msgstr ""
+
+#: ../inc/customizer.php:52
+msgid "Show Searchfield?"
 msgstr ""
 
 #. Name of the theme
@@ -81,118 +192,3 @@ msgstr ""
 #. Author URI of the theme
 msgid "http://them.es"
 msgstr ""
-
-#: ../functions.php:247
-msgid "Page "
-msgstr "Seite "
-
-#: ../functions.php:335
-msgid "Older posts"
-msgstr "Ältere Einträge"
-
-#: ../functions.php:336
-msgid "Newer posts"
-msgstr "Neuere Einträge"
-
-#: ../functions.php:423
-#, php-format
-msgid ""
-"<span class=\"sep\">Posted on </span><a href=\"%1$s\" title=\"%2$s\" "
-"rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" "
-"pubdate>%4$s</time></a><span class=\"by-author\"> <span class=\"sep\"> by "
-"</span> <span class=\"author-meta vcard\"><a class=\"url fn n\" href=\"%5$s\" "
-"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
-msgstr ""
-"<span class=\"sep\">Veröffentlicht am </span><a href=\"%1$s\" title=\"%2$s\" "
-"rel=\"bookmark\"><time class=\"entry-date\" datetime=\"%3$s\" "
-"pubdate>%4$s</time></a><span class=\"by-author\"> <span class=\"sep\"> von "
-"</span> <span class=\"author-meta vcard\"><a class=\"url fn n\" href=\"%5$s\" "
-"title=\"%6$s\" rel=\"author\">%7$s</a></span></span>"
-
-#: ../functions.php:429
-#, php-format
-msgid "View all posts by %s"
-msgstr "Zeige alle Artikel von %s"
-
-#: ../functions.php:448
-msgid ""
-"This content is password protected. To view it please enter your password "
-"below."
-msgstr "Dieser Inhalt ist passwortgeschützt. Bitte geben Sie das Passwort ein."
-
-#: ../functions.php:451
-msgid "Password"
-msgstr "Passwort"
-
-#: ../functions.php:452
-msgid "Submit"
-msgstr "Senden"
-
-#: ../functions.php:490 ../functions.php:517
-msgid "Edit"
-msgstr "Editieren"
-
-#. translators: 1: date, 2: time
-#: ../functions.php:512
-#, php-format
-msgid "%1$s ago"
-msgstr "vor %1$s"
-
-#: ../functions.php:521
-msgid "Your comment is awaiting moderation."
-msgstr "Ihr Kommentar wird derzeit überprüft."
-
-#: ../functions.php:530
-msgid "Reply"
-msgstr "Antworten"
-
-#: ../functions.php:562
-msgid "Email"
-msgstr "E-Mail-Adresse"
-
-#: ../functions.php:570
-msgid "Comment"
-msgstr "Kommentar"
-
-#: ../functions.php:572
-#, php-format
-msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
-msgstr "Bitte <a href=\"%s\">loggen Sie sich ein</a> um einen Kommentar zu posten."
-
-#: ../functions.php:574
-#, php-format
-msgid ""
-"Logged in as <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Log out of this "
-"account\">Log out?</a>"
-msgstr ""
-"Eingeloggt als <a href=\"%1$s\">%2$s</a>. <a href=\"%3$s\" title=\"Aus dem "
-"Account ausloggen?\">Ausloggen?</a>"
-
-#: ../functions.php:576
-msgid "Your Email address will not be published."
-msgstr "Ihre Email Adresse wird nicht veröffentlicht."
-
-#: ../functions.php:582
-#, php-format
-msgid "Leave a Reply to %s"
-msgstr "Kommentar abgeben zu %s"
-
-#: ../functions.php:583
-msgid "Cancel reply"
-msgstr "Antwort abbrechen"
-
-#: ../functions.php:584
-msgid "Post Comment"
-msgstr "Kommentar posten"
-
-#: ../elements/search.php:38
-msgid "Search"
-msgstr "Suche"
-
-#: ../inc/customizer.php:37
-msgid "Upload Header Logo"
-msgstr "Headerlogo hochladen"
-
-#: ../inc/customizer.php:52
-msgid "Show Searchfield?"
-msgstr "Suchfeld anzeigen?"

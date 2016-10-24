@@ -1,20 +1,21 @@
 {
-  "name": "themes-starter-spa",
-  "version": "1.0",
-  "homepage": "https://github.com/them-es",
-  "authors": [
-    "them.es"
-  ],
-  "description": "WordPress Starter Theme for Single Page Applications",
-  "license": "GPLv2+",
-  "dependencies": {
-    "polymer": "Polymer/polymer",
-	"paper-elements": "PolymerElements/paper-elements",
-    "iron-pages": "PolymerElements/iron-pages",
-	"iron-ajax": "PolymerElements/iron-ajax",
-	"iron-icons": "PolymerElements/iron-icons",
-	"iron-image": "PolymerElements/iron-image",
-	"page.js": "visionmedia/page.js",
-	"typeahead.js": "twitter/typeahead.js"
-  }
+	"name": "themes-starter-spa",
+	"version": "1.0",
+	"homepage": "https://github.com/them-es",
+	"authors": [
+		"them.es"
+	],
+	"description": "WordPress Starter Theme for Single Page Applications",
+	"license": "GPLv2+",
+	"dependencies": {
+		"polymer": "Polymer/polymer#^1.0.0",
+		"paper-elements": "PolymerElements/paper-elements#^1.0.0",
+		"neon-animation": "PolymerElements/neon-animation#^1.0.0",
+		"iron-pages": "PolymerElements/iron-pages#^1.0.0",
+		"iron-ajax": "PolymerElements/iron-ajax#^1.0.0",
+		"iron-icons": "PolymerElements/iron-icons#^1.0.0",
+		"iron-image": "PolymerElements/iron-image#^1.0.0",
+		"app-route": "PolymerElements/app-route",
+		"typeahead.js": "twitter/typeahead.js#^0.11.1"
+	}
 }
