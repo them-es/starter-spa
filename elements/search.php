@@ -78,7 +78,7 @@
 				d.slug = '<?php echo $post->post_name; ?>';
 			}
 			// Update Browser URL, Click Menu link
-			window.history.pushState({}, null, '<?php echo trailingslashit( get_bloginfo( 'url' ) ); ?>' + d.slug); // https://github.com/PolymerElements/app-route#integrating-with-other-routing-code
+			window.history.pushState({}, null, '<?php echo trailingslashit( home_url() ); ?>' + d.slug); // https://github.com/PolymerElements/app-route#integrating-with-other-routing-code
 			window.dispatchEvent(new CustomEvent('location-changed'));
 			document.querySelector('paper-menu [data-page="' + d.slug + '"]').click();
 
