@@ -62,22 +62,21 @@
 				<?php
 					// Get menu items based on type: "$menu_items_parents" defined on top
 					foreach ( $menu_items_parents as $key => $value ) {
-						$title = $value["title"];
-						$slug = $value["slug"];
-						//$url = $value["url"];
-
-						$child = $value["child"];
+						$title = $value['title'];
+						$slug = $value['slug'];
+						$url = $value['url'];
+						$child = $value['child'];
 
 						$paper_item = '';
 
 						if ( empty( $child ) ) :
-							$paper_item .= '<a data-page="' . $slug . '" href="' . $value["url"] . '"><span>' . $title . '</span></a><!-- menu_item -->';
+							$paper_item .= '<a data-page="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a><!-- menu_item -->';
 						else :
 							$paper_item .= '<paper-submenu>';
 								$paper_item .= '<paper-item class="menu-trigger"><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></paper-item>';
 								$paper_item .= '<paper-menu class="menu-content" selected="{{pageData.page}}" attr-for-selected="data-page">';
 									foreach ( $child as $key => $value ) {
-										$paper_item .= '<a data-page="' . $value["slug"] . '" href="' . $value["url"] . '"><span>' . $value["title"] . '</span></a>';
+										$paper_item .= '<a data-page="' . $value['slug'] . '" href="' . $value['url'] . '"><span>' . $value['title'] . '</span></a>';
 									}
 								$paper_item .= '</paper-menu>';
 							$paper_item .= '</paper-submenu>';
@@ -140,14 +139,14 @@
 						
 						// Get all menu items: "$menu_items_pages" defined on top
 						foreach ( $menu_items_pages as $key => $value ) {
-							$section .= '<neon-animatable data-page="' . $value["slug"] . '">' . PHP_EOL;
+							$section .= '<neon-animatable data-page="' . $value['slug'] . '">' . PHP_EOL;
 								$section .= '<article>' . PHP_EOL;
-									$id = $value["pageid"];
+									$id = $value['pageid'];
 									
 									if ( $id === $page_for_posts ) : // Blog Posts page: /wp-admin/options-reading.php
 										$section .= '<post-list show="all"></post-list>'; // Custom Web Component
 									else :
-										$section .= apply_filters('the_content', get_post_field( 'post_content', $id ) ) . PHP_EOL;
+										$section .= apply_filters( 'the_content', get_post_field( 'post_content', $id ) ) . PHP_EOL;
 									endif;
 									
 								$section .= '</article>' . PHP_EOL;
@@ -157,7 +156,7 @@
 						// 404 - Not found
 						$section .= '<neon-animatable data-page="404">' . PHP_EOL;
 							$section .= '<article>' . PHP_EOL;
-								$section .= '<p>' . __( "Page not found", "my-theme" ) . '</p>' . PHP_EOL;
+								$section .= '<p>' . __( 'Page not found', 'my-theme' ) . '</p>' . PHP_EOL;
 							$section .= '</article>' . PHP_EOL;
 						$section .= '</neon-animatable>' . PHP_EOL;
 						
@@ -181,8 +180,8 @@
 			// WP-admin links
 			(function ($) {
 				$(document).ready(function () {
-					$("#wp-toolbar a").on("click", function () {
-						location.href = $(this).attr("href");
+					$('#wp-toolbar a').on('click', function () {
+						location.href = $(this).attr('href');
 					});
 				});
 			}(jQuery));
