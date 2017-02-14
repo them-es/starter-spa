@@ -23,8 +23,8 @@
 		<paper-material elevation="4" class="container narrow">
 			<!--paper-checkbox id="load_users" checked disabled on-change="usersChanged"> <?php _e( 'All Users', 'my-theme' ); ?></paper-checkbox-->
 			
-			<paper-radio-group id="change_order" selected="timestamp" on-paper-radio-group-changed="orderChanged">
-				<paper-radio-button name="timestamp"><?php _e( 'Order by Timestamp', 'my-theme' ); ?></paper-radio-button>
+			<paper-radio-group id="change_order" selected="date" on-paper-radio-group-changed="orderChanged">
+				<paper-radio-button name="date"><?php _e( 'Order by Date', 'my-theme' ); ?></paper-radio-button>
 				<paper-radio-button name="title"><?php _e( 'Order by Title', 'my-theme' ); ?></paper-radio-button>
 			</paper-radio-group>
 		</paper-material>
@@ -95,7 +95,8 @@
 			var filter = this.$.change_order.selected;
 			//alert("Order list by " + filter);
 			var params = {
-				"filter[orderby]": filter
+				"order": "asc",
+				"orderby": filter
 			};
 			this.$.wp_posts.params = params;
 			this.$.wp_posts.generateRequest();
