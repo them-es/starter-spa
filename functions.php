@@ -59,14 +59,14 @@ $theme_version = '1.1';
 				
 				// $url = $menu_item->url;
 				$url = themes_starter_site_base() . '/' . $slug;
-				$title = apply_filters( "the_title", $menu_item->title );
+				$title = apply_filters( 'the_title', $menu_item->title );
 
 				if ( $id == get_option( 'page_on_front' ) ) {
 					$slug = 'index';
 					$url = themes_starter_site_base() . '/';
 				}
 
-				array_push( $menu_items_pages, array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "index" => $count) ); // e.g. $value["pageid"]
+				array_push( $menu_items_pages, array( 'pageid' => $id, 'title' => $title, 'url' => $url, 'slug' => $slug, 'index' => $count) ); // e.g. $value["pageid"]
 				
 				$count++;
 			}
@@ -98,7 +98,7 @@ $theme_version = '1.1';
 				$url = themes_starter_site_base() . '/' . $slug;
 				$title = $menu_item->title;
 
-				if ( $id === get_option('page_on_front') ) {
+				if ( $id === get_option( 'page_on_front' ) ) {
 					$slug = 'index';
 					$url = themes_starter_site_base() . '/';
 				}
@@ -107,7 +107,7 @@ $theme_version = '1.1';
 
 					$parent_id = $menu_item->db_id;
 					// Child
-					array_push( $menu_items_pages, array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "child" => array(), "index" => $count) );
+					array_push( $menu_items_pages, array( 'pageid' => $id, 'title' => $title, 'url' => $url, 'slug' => $slug, 'child' => array(), 'index' => $count ) );
 					
 				} else if ( $menu_item->menu_item_parent == $parent_id ) {
 
@@ -116,7 +116,7 @@ $theme_version = '1.1';
 						$url = themes_starter_site_base() . '/';
 					}
 					// Parent
-					array_push( $menu_items_pages[count($menu_items_pages) - 1]["child"], array("pageid" => $id, "title" => $title, "url" => $url, "slug" => $slug, "index" => $count) );
+					array_push( $menu_items_pages[count($menu_items_pages) - 1]['child'], array( 'pageid' => $id, 'title' => $title, 'url' => $url, 'slug' => $slug, 'index' => $count ) );
 					
 				} else {
 					
@@ -148,7 +148,11 @@ $theme_version = '1.1';
 			add_theme_support( 'automatic-feed-links' );
 			add_theme_support( 'post-thumbnails' );
 			add_theme_support( 'html5', array(
-				'search-form', 'comment-form', 'comment-list', 'gallery', 'caption'
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
 			) );
 
 			// Date/Time Format
@@ -214,7 +218,7 @@ $theme_version = '1.1';
 
 			return $fields;
 		}
-		add_filter( 'user_contactmethods', 'themes_starter_add_user_fields' );
+		add_filter( 'user_contactmethods', 'themes_starter_add_user_fields' ); // get_user_meta( $user->ID, 'facebook_profile', true );
 	endif;
 
 

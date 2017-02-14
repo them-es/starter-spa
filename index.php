@@ -119,10 +119,11 @@
 					endif;
 
 					/**
-					 * Check if WP-API (http://wp-api.org) Plugin is installed
+					 * Check if WordPress >= 4.7
 					 */
-					if ( ! class_exists( 'WP_REST_Controller' ) ) :
-						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Install the WP REST API Plugin <a href="http://v2.wp-api.org">wp-api.org</a></paper-material>';
+					global $wp_version;
+					if ( $wp_version <= '4.7' ) {
+						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Please install WordPress >= 4.7 <a href="https://wordpress.org">wordpress.org</a></paper-material>';
 						$exit = true;
 					endif;
 
