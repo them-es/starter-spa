@@ -122,7 +122,7 @@
 					 * Check if WordPress >= 4.7
 					 */
 					global $wp_version;
-					if ( $wp_version <= '4.7' ) {
+					if ( $wp_version <= '4.7' ) :
 						echo '<paper-material elevation="4"><iron-icon icon="info-outline" class="icon-danger"></iron-icon> Please install WordPress >= 4.7 <a href="https://wordpress.org">wordpress.org</a></paper-material>';
 						$exit = true;
 					endif;
