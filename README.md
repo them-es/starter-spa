@@ -15,17 +15,13 @@ If you want to see it in action or want to download a customized Theme for free,
 * 1 Blog section
 
 
-## Dependencies?
-* [WordPress REST API Plugin](https://wordpress.org/plugins/rest-api) needs to be installed
-
-
 ## Getting Started
 * Download the Starter Theme under [http://them.es/starter-SPA](http://them.es/starter-SPA) and unzip it in a new Project folder
 * Prerequisites: [Bower](https://bower.io) needs to be installed on your system
 * Open the **Project directory** in Terminal and run this command to install all required packages
 * `$ bower install`
 * Upload the Theme to your WordPress instance and activate it
-* Install and activate the [WP REST API Plugin](https://wordpress.org/plugins/rest-api)
+* ~~Install and activate the [WP REST API Plugin](https://wordpress.org/plugins/rest-api)~~ Make sure you are using WordPress v4.7+
 * Add new Pages and Blog Posts
 * Select the **Front page** and the **Posts page** under `Settings / Reading`
 * Create a new menu and assign the location `Main Navigation Menu`
@@ -41,7 +37,6 @@ If you want to see it in action or want to download a customized Theme for free,
 * [Polymer](https://github.com/Polymer/polymer), [BSD licence](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
 * [typeahead.js](https://github.com/twitter/typeahead.js), [MIT license](https://github.com/twitter/typeahead.js/blob/master/LICENSE)
 * [Bower](https://github.com/bower/bower), [MIT licence](https://github.com/bower/bower/blob/master/LICENSE)
-* [WP REST API Plugin](https://github.com/WP-API/WP-API), [GPLv2+ licence](https://github.com/WP-API/WP-API/blob/develop/license.txt)
 
 
 ## Copyright & License
