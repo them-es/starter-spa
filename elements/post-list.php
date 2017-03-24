@@ -40,7 +40,7 @@
 						<h1 class="title">{{item.title.rendered}}</h1>
 						<div id="content" hidden$="{{!item.content}}">{{stripHTML(item.content.rendered)}}</div>
 						<footer>
-							<small>Posted on <em>{{formatTimestamp(item.date)}}</em></small>
+							<small><?php _e( 'Posted on', 'my-theme' ); ?> <em>{{formatTimestamp(item.date)}}</em></small>
 						</footer>
 					</div>
 				</post-card>

@@ -53,7 +53,7 @@
 			},
 			queryTokenizer: Bloodhound.tokenizers.whitespace,
 			remote: {
-				url: "<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'pages/?filter[s]=%QUERY'; ?>", // Nice to have => allow multiple post types a once: https://github.com/WP-API/WP-API/issues/1506
+				url: "<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'pages?search=%QUERY'; ?>",
 				wildcard: '%QUERY'
 			}
 		});

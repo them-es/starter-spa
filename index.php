@@ -18,9 +18,70 @@
 
 		$dir = trailingslashit( esc_url( get_template_directory_uri() ) );
 	?>
+
+	<link rel="icon" href="<?php echo $dir; ?>img/favicon.ico">
+
+	<link rel="manifest" href="<?php echo $dir; ?>manifest.json">
+
+	<meta name="theme-color" content="#3f51b5">
+
+	<!-- Add to homescreen for Chrome on Android. Fallback for manifest.json -->
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="application-name" content="My App">
+
+	<!-- Add to homescreen for Safari on iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="My App">
+
+	<!-- Homescreen icons -->
+	<link rel="apple-touch-icon" href="<?php echo $dir; ?>img/icon-48x48.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $dir; ?>img/icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="96x96" href="<?php echo $dir; ?>img/icon-96x96.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="<?php echo $dir; ?>img/icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="192x192" href="<?php echo $dir; ?>img/icon-192x192.png">
+
+	<!-- Tile icon for Windows 8 (144x144 + tile color) -->
+	<meta name="msapplication-TileImage" content="<?php echo $dir; ?>img/icon-144x144.png">
+	<meta name="msapplication-TileColor" content="#3f51b5">
+	<meta name="msapplication-tap-highlight" content="no">
 	
 	<!-- Initialize Web components -->
-	<script src="<?php echo $dir; ?>bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<script>
+		// Polymer options
+		window.Polymer = {
+			dom: 'shadow',
+			lazyRegister: true,
+		};
+
+		// Web Components polyfill
+		(function() {
+			'use strict';
+			var onload = function() {
+				// For native Imports, manually fire WebComponentsReady so user code
+				// can use the same code path for native and polyfill'd imports.
+				if ( ! window.HTMLImports ) {
+					document.dispatchEvent(
+						new CustomEvent('WebComponentsReady', { bubbles: true })
+					);
+				}
+			};
+			var webComponentsSupported = (
+				'registerElement' in document
+				&& 'import' in document.createElement('link')
+				&& 'content' in document.createElement('template')
+			);
+			if ( ! webComponentsSupported ) {
+				var script = document.createElement('script');
+				script.async = true;
+				script.src = '<?php echo $dir; ?>bower_components/webcomponentsjs/webcomponents-lite.min.js';
+				script.onload = onload;
+				document.head.appendChild(script);
+			} else {
+				onload();
+			}
+		})();
+	</script>
 	<link rel="import" href="<?php echo $dir; ?>elements.html">
 	
 	<?php if ( wp_count_posts()->publish >= 1 ) : ?>
@@ -133,7 +194,6 @@
 				?>
 
 				<neon-animated-pages id="pages" selected="{{pageData.page}}" attr-for-selected="data-page" fallback-selection="index" entry-animation="slide-from-left-animation" exit-animation="slide-right-animation" role="main">
-					
 					<!-- Content Pages -->
 					<?php
 						$section = '';
@@ -163,7 +223,6 @@
 						
 						echo $section;
 					?>
-					
 				</neon-animated-pages>
 				
 			</div><!-- /.container -->

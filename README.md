@@ -26,6 +26,7 @@ If you want to see it in action or want to download a customized Theme for free,
 * Select the **Front page** and the **Posts page** under `Settings / Reading`
 * Create a new menu and assign the location `Main Navigation Menu`
 * Use the Theme Customizer to add a logo
+* Update `manifest.json` and replace all icons in `/img`
 * Style your Web app by customizing `elements/app-theme.html`
 * Now it's up to you to build new Web elements
 * Don't forget to keep your Polymer elements updated using Bower
@@ -34,7 +35,7 @@ If you want to see it in action or want to download a customized Theme for free,
 
 ## Technology
 
-* [Polymer](https://github.com/Polymer/polymer), [BSD licence](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
+* [Polymer](https://github.com/Polymer/polymer) and [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit), [BSD licence](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
 * [typeahead.js](https://github.com/twitter/typeahead.js), [MIT license](https://github.com/twitter/typeahead.js/blob/master/LICENSE)
 * [Bower](https://github.com/bower/bower), [MIT licence](https://github.com/bower/bower/blob/master/LICENSE)
 
