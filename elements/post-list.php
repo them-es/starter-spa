@@ -18,7 +18,7 @@
 		}
 	</style>
 	<template>
-		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'posts'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
+		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'posts?_embed'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
 		
 		<paper-material elevation="4" class="container narrow">
 			<!--paper-checkbox id="load_users" checked disabled on-change="usersChanged"> <?php _e( 'All Users', 'my-theme' ); ?></paper-checkbox-->
@@ -33,10 +33,10 @@
 		
 		<section class="flex layout vertical">
 			<template is="dom-repeat" items="{{data}}">
-				<post-card id="{{item.ID}}">
+				<post-card id="{{item.id}}">
 					<div class="card-header">
 						<iron-icon icon="star" hidden$="{{!item.sticky}}" style="float: right;"></iron-icon>
-						<iron-image hidden$="{{!item.featured_image}}" src="{{item.featured_image.source}}" style="width: 250px; height: 250px;" sizing="contain" preload fade></iron-image>
+						<iron-image hidden$="{{!item.featured_media}}" src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" style="width: 250px; height: 250px;" sizing="contain" preload fade></iron-image>
 						<h1 class="title">{{item.title.rendered}}</h1>
 						<div id="content" hidden$="{{!item.content}}">{{stripHTML(item.content.rendered)}}</div>
 						<footer>
