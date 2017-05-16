@@ -2,8 +2,8 @@
 
 body {
 	font-family: 'Roboto', 'Noto', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	color: #333;
-	background: #FAFAFA;
+	color: #000;
+	background-color: #ECEFF1;
 }
 
 .container {
@@ -11,13 +11,6 @@ body {
 }
 .container.narrow {
 	padding: 0 0.5em;
-}
-
-.tt-menu {
-	background-color: #FFF;
-}
-.tt-suggestion {
-	padding: 5px;
 }
 
 paper-menu a > *,
@@ -42,7 +35,7 @@ body.admin-bar .post-edit-link {
 	text-decoration: none !important;
 }
 body.admin-bar .post-edit-link::before {
-	content: "\270E";
+	content: '\270E';
 	display: inline-block;
 	margin-right: 5px;
 }
