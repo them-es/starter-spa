@@ -81,4 +81,5 @@
 		}
 
 	}
+	window.customElements.define(PostList.is, PostList);
 </script>
