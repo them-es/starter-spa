@@ -36,6 +36,7 @@
 		
 		<section class="flex layout vertical">
 			<template is="dom-repeat" items="{{data}}">
+
 				<div id="{{item.id}}">
 					<iron-icon icon="star" hidden$="{{!item.sticky}}" style="float: right;"></iron-icon>
 					<iron-image hidden$="{{!item.featured_image}}" src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" sizing="cover" style="width: 200px; height: 200px; background-color: lightgray;" preload fade></iron-image>
@@ -78,7 +79,6 @@
 			this.$.wp_posts.params = params;
 			this.$.wp_posts.generateRequest();
 		}
-	}
 
-	window.customElements.define(PostList.is, PostList);
+	}
 </script>
