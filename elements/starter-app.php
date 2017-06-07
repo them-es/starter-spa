@@ -27,6 +27,7 @@
 <link rel="import" href="../bower_components/iron-selector/iron-selector.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-dialog/paper-dialog.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
@@ -45,6 +46,19 @@
 				--app-primary-color: #1E88E5;
 				--app-secondary-color: black;
 				display: block;
+			}
+
+			a {
+				color: var(--app-primary-color);
+			}
+			
+			paper-button {
+				background-color: var(--paper-pink-a200);
+				color: #FFF;
+				--paper-button-raised-keyboard-focus: {
+					background-color: var(--paper-pink-100);
+					color: var(--paper-pink-a200);
+				};
 			}
 
 			app-drawer-layout:not([narrow]) [drawer-toggle] {
@@ -121,18 +135,16 @@
 		<app-drawer-layout fullbleed>
 			<!-- Drawer content -->
 			<app-drawer id="drawer" slot="drawer">
-				<app-toolbar>
-					<a class="logo" href="<?php echo home_url(); ?>" rel="home">
-						<?php
-							if ( isset( $header_logo ) && ! empty( $header_logo ) ) :
-						?>
-							<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
-						<?php
-							else :
-								echo esc_attr( get_bloginfo( 'name', 'display' ) );
-							endif;
-						?>
-					</a>
+				<app-toolbar class="logo">
+					<?php
+						if ( isset( $header_logo ) && ! empty( $header_logo ) ) :
+					?>
+						<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
+					<?php
+						else :
+							echo esc_attr( get_bloginfo( 'name', 'display' ) );
+						endif;
+					?>
 				</app-toolbar>
 
 				<?php if ( isset( $search_enabled ) && '1' === $search_enabled ) : ?>

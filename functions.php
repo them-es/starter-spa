@@ -1,6 +1,6 @@
 <?php
 
-$theme_version = '2.0';
+$theme_version = '2.1';
 
 	/**
 	 * Include Theme Customizer
@@ -189,20 +189,6 @@ $theme_version = '2.0';
 			print ' | ' . __( 'Page ' , 'my-theme') . get_query_var( 'paged' );
 		}
 	}
-
-
-	/**
-	 * If REST API used: Set number of posts per page to "unlimited"
-	 *
-	 * @since v1.0
-	 */
-	function themes_starter_query_mods( $query ) {
-		// Check if WP-API (http://wp-api.org) Plugin is installed
-		if ( class_exists( 'WP_JSON_Posts' ) ) {
-			$query->set( 'posts_per_page', '-1' );
-		}
-	}
-	add_action( 'pre_get_posts', 'themes_starter_query_mods' );
 
 
 	/**
@@ -507,7 +493,6 @@ $theme_version = '2.0';
 		
 		// 2. Scripts
 		wp_enqueue_script( 'jquery' );// enqueue JQuery
-		wp_enqueue_script( 'mainjs', get_template_directory_uri() . '/js/main.min.js', false, $theme_version, true );
 		
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );

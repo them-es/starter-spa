@@ -1,5 +1,5 @@
 <?php
-	include_once('../../../../wp-config.php'); // Load WP Config (relative to current file)
+	include_once( '../../../../wp-config.php' ); // Load WP Config (relative to current file)
 ?>
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
@@ -27,9 +27,9 @@
 		
 		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'posts?per_page=100&_embed'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
 		
-		<paper-radio-group id="change_order" selected="date" on-paper-radio-group-changed="_orderChanged">
-			<paper-radio-button name="date"><?php _e( 'Order by Date', 'my-theme' ); ?></paper-radio-button>
-			<paper-radio-button name="title"><?php _e( 'Order by Title', 'my-theme' ); ?></paper-radio-button>
+		<paper-radio-group id="change_order" selected="date|desc" on-paper-radio-group-changed="_orderChanged">
+			<paper-radio-button name="date|desc"><?php _e( 'Order by Date', 'my-theme' ); ?></paper-radio-button>
+			<paper-radio-button name="title|asc"><?php _e( 'Order by Title', 'my-theme' ); ?></paper-radio-button>
 		</paper-radio-group>
 		
 		<br>
@@ -71,10 +71,10 @@
 		}
 
 		_orderChanged() {
-			var filter = this.$.change_order.selected;
+			var order = this.$.change_order.selected.split('|');
 			var params = {
-				'order': 'asc',
-				'orderby': filter
+				'orderby': order[0],
+				'order': order[1]
 			};
 			this.$.wp_posts.params = params;
 			this.$.wp_posts.generateRequest();
