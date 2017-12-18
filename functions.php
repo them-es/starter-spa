@@ -9,7 +9,7 @@ $theme_version = '2.1';
 	 */
 	$theme_customizer = get_template_directory() . '/inc/customizer.php';
 	if ( is_readable( $theme_customizer ) ) {
-		require_once( $theme_customizer );
+		require_once $theme_customizer;
 	}
 
 	/**
@@ -19,7 +19,7 @@ $theme_version = '2.1';
 	 */
 	$theme_wordpresscom = get_template_directory() . '/inc/wordpresscom.php';
 	if ( is_readable( $theme_wordpresscom ) ) {
-		require_once( $theme_wordpresscom );
+		require_once $theme_wordpresscom;
 	}
 
 
