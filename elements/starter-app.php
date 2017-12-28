@@ -130,7 +130,7 @@
 		</style>
 
 		<app-location route="{{route}}"></app-location>
-		<app-route route="{{route}}" pattern="./:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
+		<app-route route="{{route}}" pattern="<?php echo untrailingslashit( get_blog_details()->path ); ?>/:page" data="{{routeData}}" tail="{{subroute}}"></app-route>
 		
 		<app-drawer-layout fullbleed>
 			<!-- Drawer content -->
