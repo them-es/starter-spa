@@ -23,6 +23,14 @@
 			.post-list {
 				margin-bottom: 15px;
 			}
+			iron-icon {
+				float: right;
+			}
+			iron-image {
+				width: 200px;
+				height: 200px;
+				background-color: lightgray;
+			}
 		</style>
 		
 		<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'posts?per_page=100&_embed'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
@@ -38,8 +46,8 @@
 			<template is="dom-repeat" items="{{data}}">
 
 				<div id="{{item.id}}">
-					<iron-icon icon="star" hidden$="{{!item.sticky}}" style="float: right;"></iron-icon>
-					<iron-image hidden$="{{!item.featured_image}}" src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" sizing="cover" style="width: 200px; height: 200px; background-color: lightgray;" preload fade></iron-image>
+					<iron-icon icon="star" hidden$="{{!item.sticky}}"></iron-icon>
+					<iron-image hidden$="{{!item.featured_media}}" src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" sizing="cover" preload fade></iron-image>
 					<h1 class="title">{{item.title.rendered}}</h1>
 					<div id="content" hidden$="{{!item.content}}">{{stripHTML(item.content.rendered)}}</div>
 					<footer>
