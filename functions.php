@@ -1,6 +1,6 @@
 <?php
 
-$theme_version = '2.1';
+$theme_version = '2.2';
 
 	/**
 	 * Include Theme Customizer
@@ -177,6 +177,24 @@ $theme_version = '2.1';
 		$posttype = get_post_type( $post );
 		return ( ((is_archive()) || (is_author()) || (is_category()) || (is_home()) || (is_single()) || (is_tag())) && ( 'post' === $posttype ) ) ? true : false ;
 	}
+
+
+	/**
+	 * Get site root
+	 * if ( get_root() ) { ... }
+	 *
+	 * @since v2.2
+	 */
+	function get_root() {
+		if ( is_multisite() && ! empty( get_blog_details()->path ) ) {
+			$root =  get_blog_details()->path;
+		} else {
+			$root = '/';
+		}
+
+		return trailingslashit( $root );
+	}
+	
 
 
 	/**
