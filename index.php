@@ -55,7 +55,7 @@
 		<script>
 			// WP-admin links
 			(function ($) {
-				$(document).ready(function () {
+				$(function () {
 					$('#wp-toolbar a').on('click', function () {
 						location.href = $(this).attr('href');
 					});
