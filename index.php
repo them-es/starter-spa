@@ -46,6 +46,8 @@
 
 <body <?php body_class(); ?> unresolved>
 
+	<?php wp_body_open(); ?>
+
 	<starter-app></starter-app>
 
 	<?php

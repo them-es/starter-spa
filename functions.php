@@ -1,6 +1,6 @@
 <?php
 
-$theme_version = '2.4';
+$theme_version = '2.5';
 
 	/**
 	 * Include Theme Customizer
@@ -117,17 +117,21 @@ $theme_version = '2.4';
 
 
 	/**
-	 * Add title tag if < 4.1: https://make.wordpress.org/core/2014/10/29/title-tags-in-4-1
+	 * Fire the wp_body_open action.
 	 *
-	 * @since v1.0
+	 * Added for backwards compatibility to support pre 5.2.0 WordPress versions.
+	 *
+	 * @since v2.5
 	 */
-	if ( ! function_exists( 'themes_starter_render_title' ) ) :
-		function themes_starter_render_title() {
-		?>
-			<title><?php wp_title( '|', true, 'right' ); ?></title>
-		<?php
+	if ( ! function_exists( 'wp_body_open' ) ) :
+		function wp_body_open() {
+			/**
+			 * Triggered after the opening <body> tag.
+			 *
+			 * @since v2.5
+			 */
+			do_action( 'wp_body_open' );
 		}
-		add_action( 'wp_head', 'themes_starter_render_title' );
 	endif;
 
 
@@ -155,7 +159,6 @@ $theme_version = '2.4';
 			// Add new fields
 			$fields['facebook_profile'] = 'Facebook URL';
 			$fields['twitter_profile'] = 'Twitter URL';
-			$fields['google_profile'] = 'Google+ URL';
 			$fields['linkedin_profile'] = 'LinkedIn URL';
 			$fields['xing_profile'] = 'Xing URL';
 			$fields['github_profile'] = 'GitHub URL';
@@ -346,17 +349,6 @@ $theme_version = '2.4';
 
 
 	if ( ! function_exists( 'themes_starter_comment' ) ) :
-		/**
-		 * Style Reply link
-		 *
-		 * @since v1.0
-		 */
-		function themes_starter_replace_reply_link_class( $class ) {
-			$output = str_replace( "class='comment-reply-link", "class='btn btn-default", $class );
-			return $output;
-		}
-		add_filter( 'comment_reply_link', 'themes_starter_replace_reply_link_class' );
-
 		/**
 		 * Template for comments and pingbacks:
 		 * add function to comments.php ... wp_list_comments( array( 'callback' => 'themes_starter_comment' ) );
