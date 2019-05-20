@@ -127,6 +127,11 @@
 			.searchitem:hover {
 				color: var(--app-secondary-color);
 			}
+
+			.scrollable-area {
+				height: 100%;
+				overflow: auto;
+			}
 		</style>
 
 		<app-location route="{{route}}"></app-location>
@@ -135,70 +140,76 @@
 		<app-drawer-layout fullbleed>
 			<!-- Drawer content -->
 			<app-drawer id="drawer" slot="drawer">
-				<app-toolbar class="logo">
+				<div class="scrollable-area">
+					<app-toolbar class="logo">
+						<?php
+							if ( isset( $header_logo ) && ! empty( $header_logo ) ) :
+						?>
+							<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
+						<?php
+							else :
+								echo esc_attr( get_bloginfo( 'name', 'display' ) );
+							endif;
+						?>
+					</app-toolbar>
+
 					<?php
-						if ( isset( $header_logo ) && ! empty( $header_logo ) ) :
+						if ( isset( $search_enabled ) && '1' === $search_enabled ) :
 					?>
-						<img src="<?php echo esc_url( $header_logo ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" />
+						<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'pages?search'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
+
+						<div id="searchcontainer">
+							<paper-input label="<?php _e( 'Search', 'my-theme' ); ?>" on-value-changed="_onSearchValueChanged" value="{{searchValue}}">
+								<iron-icon icon="search" slot="prefix"></iron-icon>
+								<input>
+							</paper-input>
+
+							<div id="searchlist" style="display: none;">
+								<iron-selector id="search" selected="{{routeData.page}}" attr-for-selected="data-page" role="navigation">
+									<template is="dom-repeat" items="{{data}}">
+										<a class="searchitem" href="{{item.link}}" data-page="{{item.slug}}" on-tap="_onSearchItemSelect">{{item.title.rendered}}</a>
+									</template>
+								</iron-selector>
+							</div>
+						</div>
 					<?php
-						else :
-							echo esc_attr( get_bloginfo( 'name', 'display' ) );
 						endif;
 					?>
-				</app-toolbar>
 
-				<?php if ( isset( $search_enabled ) && '1' === $search_enabled ) : ?>
-					<iron-ajax id="wp_posts" auto url="<?php echo trailingslashit( esc_url_raw( rest_url( '/wp/v2' ) ) ) . 'pages?search'; ?>" params="{{ajaxParams}}" handle-as="json" last-response="{{data}}"></iron-ajax>
+					<iron-selector id="menu" class="drawer-list" selected="{{routeData.page}}" fallback-selection="index" attr-for-selected="data-page" role="navigation">
+						<?php
+							// Get menu items based on type: "$menu_items_pages" defined on top
+							foreach ( $menu_items_pages as $key => $value ) {
+								$title = $value['title'];
+								$slug = $value['slug'];
+								$url = $value['url'];
 
-					<div id="searchcontainer">
-						<paper-input label="<?php _e( 'Search', 'my-theme' ); ?>" on-value-changed="_onSearchValueChanged" value="{{searchValue}}">
-							<iron-icon icon="search" slot="prefix"></iron-icon>
-							<input>
-						</paper-input>
+								echo '<a href="' . $url . '" data-page="' . $slug . '">' . $title . '</a>';
 
-						<div id="searchlist" style="display: none;">
-							<iron-selector id="search" selected="{{routeData.page}}" attr-for-selected="data-page" role="navigation">
-								<template is="dom-repeat" items="{{data}}">
-									<a class="searchitem" href="{{item.link}}" data-page="{{item.slug}}" on-tap="_onSearchItemSelect">{{item.title.rendered}}</a>
-								</template>
-							</iron-selector>
-						</div>
-					</div>
-				<?php endif; ?>
+								/*$menu_items = '';
 
-				<iron-selector id="menu" class="drawer-list" selected="{{routeData.page}}" fallback-selection="index" attr-for-selected="data-page" role="navigation">
-					<?php
-						// Get menu items based on type: "$menu_items_pages" defined on top
-						foreach ( $menu_items_pages as $key => $value ) {
-							$title = $value['title'];
-							$slug = $value['slug'];
-							$url = $value['url'];
+								if ( empty( $child ) ) :
+									$menu_items .= '<a data-page="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a>';
+								else :
+									$menu_items .= '<div>';
+										$menu_items .= '<p><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></p>';
+										$menu_items .= '<iron-selector class="menu-content" selected="{{routeData.page}}" attr-for-selected="data-page">';
+											foreach ( $child as $key => $value ) {
+												$menu_items .= '<a data-page="' . $value['slug'] . '" href="' . $value['url'] . '"><span>' . $value['title'] . '</span></a>';
+											}
+										$menu_items .= '</iron-selector>';
+									$menu_items .= '</div>';
+								endif;
 
-							echo '<a href="' . $url . '" data-page="' . $slug . '">' . $title . '</a>';
+								echo $menu_items;*/
+							}
+						?>
+					</iron-selector>
 
-							/*$menu_items = '';
-
-							if ( empty( $child ) ) :
-								$menu_items .= '<a data-page="' . $slug . '" href="' . $url . '"><span>' . $title . '</span></a>';
-							else :
-								$menu_items .= '<div>';
-									$menu_items .= '<p><span>' . $title . '</span><iron-icon icon="expand-more"></iron-icon></p>';
-									$menu_items .= '<iron-selector class="menu-content" selected="{{routeData.page}}" attr-for-selected="data-page">';
-										foreach ( $child as $key => $value ) {
-											$menu_items .= '<a data-page="' . $value['slug'] . '" href="' . $value['url'] . '"><span>' . $value['title'] . '</span></a>';
-										}
-									$menu_items .= '</iron-selector>';
-								$menu_items .= '</div>';
-							endif;
-
-							echo $menu_items;*/
-						}
-					?>
-				</iron-selector>
-
-				<p class="footer">
-					<small>&copy; <?php echo date( 'Y' ); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
-				</p>
+					<p class="footer">
+						<small>&copy; <?php echo date( 'Y' ); ?> <?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?></small>
+					</p>
+				</div><!-- scrollable-area -->
 			</app-drawer>
 
 			<!-- Main content -->

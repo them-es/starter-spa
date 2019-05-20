@@ -8,11 +8,11 @@
 	
 	<?php
 		wp_head();
-
+		
 		$dir = trailingslashit( esc_url( get_template_directory_uri() ) );
 	?>
 
-	<link rel="icon" href="<?php echo $dir; ?>img/favicon.ico">
+	<link rel="icon" href="<?php echo $dir; ?>assets/img/favicon.ico">
 
 	<link rel="manifest" href="<?php echo $dir; ?>manifest.json">
 
@@ -28,14 +28,14 @@
 	<meta name="apple-mobile-web-app-title" content="Starter App">
 
 	<!-- Homescreen icons -->
-	<link rel="apple-touch-icon" href="<?php echo $dir; ?>img/icon-48x48.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $dir; ?>img/icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="96x96" href="<?php echo $dir; ?>img/icon-96x96.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="<?php echo $dir; ?>img/icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="192x192" href="<?php echo $dir; ?>img/icon-192x192.png">
+	<link rel="apple-touch-icon" href="<?php echo $dir; ?>assets/img/icon-48x48.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $dir; ?>assets/img/icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="96x96" href="<?php echo $dir; ?>assets/img/icon-96x96.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="<?php echo $dir; ?>assets/img/icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="192x192" href="<?php echo $dir; ?>assets/img/icon-192x192.png">
 
 	<!-- Tile icon for Windows 8 (144x144 + tile color) -->
-	<meta name="msapplication-TileImage" content="<?php echo $dir; ?>img/icon-144x144.png">
+	<meta name="msapplication-TileImage" content="<?php echo $dir; ?>assets/img/icon-144x144.png">
 	<meta name="msapplication-TileColor" content="#3f51b5">
 	<meta name="msapplication-tap-highlight" content="no">
 	

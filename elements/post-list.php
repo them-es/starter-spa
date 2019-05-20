@@ -8,7 +8,6 @@
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
-
 <dom-module id="post-list" attributes="show">
 	<template>
 		<style>
@@ -20,9 +19,15 @@
 			h1 {
 				margin-top: 0;
 			}
+
+			.post {
+				margin: 30px 0;
+			}
+
 			.post-list {
 				margin-bottom: 15px;
 			}
+
 			iron-icon {
 				float: right;
 			}
@@ -44,16 +49,18 @@
 		
 		<section class="flex layout vertical">
 			<template is="dom-repeat" items="{{data}}">
-
-				<div id="{{item.id}}">
+				<div id="post{{item.id}}" class="post">
 					<iron-icon icon="star" hidden$="{{!item.sticky}}"></iron-icon>
-					<iron-image hidden$="{{!item.featured_media}}" src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" sizing="cover" preload fade></iron-image>
+					<template is="dom-if" if="{{item._embedded.wp:featuredmedia}}">
+						<iron-image src="{{item._embedded.wp:featuredmedia.0.media_details.sizes.medium.source_url}}" sizing="cover" preload fade></iron-image>
+					</template>
 					<h1 class="title">{{item.title.rendered}}</h1>
 					<div id="content" hidden$="{{!item.content}}">{{stripHTML(item.content.rendered)}}</div>
 					<footer>
 						<small><?php _e( 'Posted on', 'my-theme' ); ?> <em>{{formatTimestamp(item.date)}}</em></small>
 					</footer>
 				</div>
+				<hr>
 			</template>
 		</section>
 	</template>
