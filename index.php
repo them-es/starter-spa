@@ -26,18 +26,6 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 	<meta name="apple-mobile-web-app-title" content="Starter App">
-
-	<!-- Homescreen icons -->
-	<link rel="apple-touch-icon" href="<?php echo $dir; ?>assets/img/icon-48x48.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="<?php echo $dir; ?>assets/img/icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="96x96" href="<?php echo $dir; ?>assets/img/icon-96x96.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="<?php echo $dir; ?>assets/img/icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="192x192" href="<?php echo $dir; ?>assets/img/icon-192x192.png">
-
-	<!-- Tile icon for Windows 8 (144x144 + tile color) -->
-	<meta name="msapplication-TileImage" content="<?php echo $dir; ?>assets/img/icon-144x144.png">
-	<meta name="msapplication-TileColor" content="#3f51b5">
-	<meta name="msapplication-tap-highlight" content="no">
 	
 	<!-- Load webcomponents-loader.js to check and load any polyfills your browser needs -->
 	<script src="<?php echo $dir; ?>bower_components/webcomponentsjs/webcomponents-loader.js"></script>
@@ -49,26 +37,25 @@
 	<?php wp_body_open(); ?>
 
 	<starter-app></starter-app>
+	
+	<?php wp_footer(); ?>
 
 	<?php
-		// Routing: Make sure that Admin bar links are working "onclick"
 		if ( is_admin_bar_showing() ) :
 	?>
 		<script>
-			// WP-admin links
-			(function ($) {
-				$(function () {
-					$('#wp-toolbar a').on('click', function () {
-						location.href = $(this).attr('href');
-					});
+			document.addEventListener('DOMContentLoaded', function () {
+				// Open wp-toolbar links
+				[].forEach.call( document.querySelectorAll( '#wp-toolbar a' ), function ( a ) {
+					a.addEventListener( 'click', function () {
+						location.href = this.getAttribute('href');
+					}, false );
 				});
-			}(jQuery));
+			});
 		</script>
 	<?php
 		endif;
 	?>
-	
-	<?php wp_footer(); ?>
 
 </body>
 </html>
