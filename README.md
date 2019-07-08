@@ -14,6 +14,10 @@ If you want to see it in action or want to download a customized Theme for free,
 * 1 Blog section
 
 
+## What's not included?
+* jQuery is not needed for Polymer Web Components and will not be used on the frontend anymore
+
+
 ## Getting Started
 * Download the Starter Theme under [http://them.es/starter-SPA](http://them.es/starter-SPA) and unzip it in a new Project folder
 * Prerequisites: [Bower](https://bower.io) needs to be installed on your system

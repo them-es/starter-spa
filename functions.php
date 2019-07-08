@@ -1,6 +1,6 @@
 <?php
 
-$theme_version = '2.5.1';
+$theme_version = '2.6.0';
 
 /**
  * Include Theme Customizer
@@ -503,8 +503,6 @@ function themes_starter_scripts_loader() {
 	}
 	
 	// 2. Scripts
-	wp_enqueue_script( 'jquery' );// enqueue JQuery
-	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
