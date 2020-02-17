@@ -1,6 +1,6 @@
 <?php
 
-$theme_version = '2.6.0';
+$theme_version = wp_get_theme()->get( 'Version' );
 
 /**
  * Include Theme Customizer
