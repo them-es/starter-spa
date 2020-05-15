@@ -1,4 +1,4 @@
-```This theme is outdated and should not be used anymore. If you are looking for a modern Single Page Application implementation using the WP-API you should consider trying out our [ReactJS boilerplate](https://github.com/them-es/wp-react-app) instead.```
+> This theme is outdated and should not be used anymore. If you are looking for a modern Single Page Application implementation using the WP-API you should consider trying out our [ReactJS boilerplate](https://github.com/them-es/wp-react-app) instead.
 
 ## them.es Starter Theme for Single Page Applications
 
