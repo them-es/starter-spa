@@ -1,8 +1,10 @@
+```This theme is outdated and should not be used anymore. If you are looking for a modern Single Page Application implementation using the WP-API you should consider trying out our [ReactJS boilerplate](https://github.com/them-es/wp-react-app) instead.```
+
 ## them.es Starter Theme for Single Page Applications
 
 **them.es Starter (SPA)** is a Single Page Application Starter Theme using Web components - the future of Web Development. Please note that the Source files are only recommended for WordPress Developers who are searching for a simple, solid, proved and tested **SPA Starter Theme** to build upon. **_Don't_ expect a ready-to-use WordPress Theme!**
 
-If you want to see it in action or want to download a customized Theme for free, check out [http://them.es/starter-SPA](http://them.es/starter-SPA).
+If you want to see it in action or want to download a customized Theme for free, check out [https://them.es/starter-SPA](https://them.es/starter-SPA).
 
 
 ## What's included?
@@ -19,7 +21,7 @@ If you want to see it in action or want to download a customized Theme for free,
 
 
 ## Getting Started
-* Download the Starter Theme under [http://them.es/starter-SPA](http://them.es/starter-SPA) and unzip it in a new Project folder
+* Download the Starter Theme under [https://them.es/starter-SPA](https://them.es/starter-SPA) and unzip it in a new Project folder
 * Prerequisites: [Bower](https://bower.io) needs to be installed on your system
 * Open the **Project directory** in Terminal and run this command to install all required packages
 * `$ bower install`
@@ -37,12 +39,12 @@ If you want to see it in action or want to download a customized Theme for free,
 
 ## Technology
 
-* [Polymer](https://github.com/Polymer/polymer) and [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit), [BSD licence](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
-* [Bower](https://github.com/bower/bower), [MIT licence](https://github.com/bower/bower/blob/master/LICENSE)
+* [Polymer](https://github.com/Polymer/polymer) and [Polymer Starter Kit](https://github.com/PolymerElements/polymer-starter-kit), [BSD license](https://github.com/Polymer/polymer/blob/master/LICENSE.txt)
+* [Bower](https://github.com/bower/bower), [MIT license](https://github.com/bower/bower/blob/master/LICENSE)
 
 
 ## Copyright & License
 
-Code and Documentation &copy; [them.es](http://them.es)
+Code and Documentation &copy; [them.es](https://them.es)
 
-Code released under [GPLv2+](http://www.gnu.org/licenses/gpl-2.0.html)
+Code released under [GPLv2+](https://www.gnu.org/licenses/gpl-2.0.html)
